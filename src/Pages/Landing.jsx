@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import './Landing.css'
 import pic1 from '../assets/Images/pic1.png'
 import pic2 from '../assets/Images/pic2.jpg'
@@ -13,6 +13,18 @@ import { FaBookOpen } from 'react-icons/fa';
 
 function Landing() {
 
+const aboutUsRef = useRef(null);
+ 
+useEffect(()=>{
+  if(window.location.hash === '#about'){
+    aboutUsRef.current.scrollIntoView({behavior: 'smooth'});
+  }
+},[]);
+
+const scrollToAbout =()=>{
+  aboutUsRef.current.scrollIntoView({behavior:'smooth'});
+};
+
   useEffect(() => {
     AOS.init({
       duration: 1500,
@@ -20,6 +32,8 @@ function Landing() {
       once: false
     });
   }, []);
+
+  
   return (
     <div>
       <div>
@@ -64,7 +78,7 @@ function Landing() {
             Free <span style={{ color: '#e6ac00' }}>Scholarship</span> for every bright students
           </h1>
           <button style={{ marginLeft: '50px' }} className='button1'>Get started</button>
-          <button style={{ marginLeft: '50px' }} className='button2'>Learn More </button>
+          <button onClick={scrollToAbout} style={{ marginLeft: '50px' }} className='button2'>Learn More </button>
 
         </div>
         <div className='col-span-1'>
@@ -74,7 +88,7 @@ function Landing() {
         </div>
 
       </div>
-      <div style={{ width: '100%', height: '220vh', backgroundColor: '#EEF7FF' }}>
+      <div ref={aboutUsRef} style={{ width: '100%', height: '220vh', backgroundColor: '#EEF7FF' }}>
         <h1 style={{ color: '#e6ac00' }} className='text-1 text-[40px] px-10 py-24'>
           About Us
         </h1>
@@ -139,16 +153,16 @@ function Landing() {
             <div className='flex justify-evenly mt-5'>
             <div className='ms-[-100px]'>
             <h1 style={{ color: '#e6ac00'}} className='text-1 text-[30px] '>1050+</h1>
-            <p className='text-1 text-[15px]'>Scholarships</p>
+            <p className='text-1 text-[15px] font-semibold'>Scholarships</p>
             </div>
             <div>
             <h1 style={{ color: '#e6ac00' }} className='text-1 text-[30px]'>3500+</h1>
-            <p className='text-1 text-[15px]'>Institutions</p>
+            <p className='text-1 text-[15px] font-semibold'>Institutions</p>
 
             </div>
             <div>
             <h1 style={{ color: '#e6ac00' }} className='text-1 text-[30px]'>500+  </h1>
-            <p className='text-1 text-[15px]'>Employees</p>
+            <p className='text-1 text-[15px] font-semibold'>Employees</p>
 
             </div>
           </div>
@@ -157,7 +171,7 @@ function Landing() {
         </div>
       </div>
       
-
+{/* Footer */}
 <footer class="bg-[#EEEEEE] dark:bg-gray-900">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
