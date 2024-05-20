@@ -93,7 +93,7 @@ const scrollToAbout =()=>{
         </div>
 
       </div>
-      <div ref={aboutUsRef} style={{ width: '100%', height: '220vh', backgroundColor: '#EEF7FF' }}>
+      <div ref={aboutUsRef} style={{ width: '100%', height: '235vh', backgroundColor: '#EEF7FF' }}>
         <h1 style={{ color: '#e6ac00' }} className='text-1 text-[40px] px-10 py-24'>
           About Us
         </h1>
@@ -177,7 +177,7 @@ const scrollToAbout =()=>{
       </div>
       
 {/* Footer */}
-<footer class="bg-[#EEEEEE] dark:bg-gray-900">
+<footer class="bg-[#EEEEEE]  ">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">

@@ -73,46 +73,52 @@ function Home() {
                         </th>
 
                         <th
-                          class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                          class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100  text-xs font-semibold text-gray-600 uppercase tracking-wider ">
                           Created at
                         </th>
                         <th
-                          class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                          class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-right  text-xs font-semibold text-gray-600 uppercase tracking-wider">
                           Buttons
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      
+
                       <tr>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-ghfhjyh
+                          ghfhjyh
                         </td>
 
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-center text-sm">
                           <p class="text-gray-900 whitespace-no-wrap">
                             Jan 10, 2020
                           </p>
                         </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-right text-sm">
                           <Button variant="outlined" size="small">
                             View
                           </Button>
-                          
-                          
+                          <Button style={{ marginLeft: '20px' }} variant="outlined" size="small">
+                            Apply Now
+                          </Button>
+
+
                         </td>
                       </tr>
                       <tr>
                         <td class="px-5 py-5 bg-white text-sm">
-yuhjkkhuuhjk
+                          yuhjkkhuuhjk
                         </td>
 
                         <td class="px-5 py-5 bg-white text-sm">
-                          <p class="text-gray-900 whitespace-no-wrap">Jan 18, 2020</p>
+                          <p class="text-gray-900 whitespace-no-wrap text-center">Jan 18, 2020</p>
                         </td>
-                        <td class="px-5 py-5 bg-white text-sm">
-                        <Button variant="outlined" size="small">
+                        <td class="px-5 py-5 bg-white text-sm text-right">
+                          <Button variant="outlined" size="small">
                             View
+                          </Button>
+                          <Button style={{ marginLeft: '20px' }} variant="outlined" size="small">
+                            Apply Now
                           </Button>
                         </td>
                       </tr>
