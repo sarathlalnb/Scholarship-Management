@@ -1,0 +1,38 @@
+.bg-image {
+  background: linear-gradient(to left, #ffffff, #e6e6e6);
+  height: 120vh;
+  width: 100%;
+  position: absolute;
+  /* overflow-x: hidden; */
+}
+
+.color-div {
+  background-color: white;
+  width: 946px;
+  height: 80vh;
+}
+
+.form-floating {
+  width: 390px
+}
+
+.reg-div {
+  background-color: #7c9cd7;
+  width: 290px
+}
+
+.reg {
+  font-size: small;
+  margin-left: -95px;
+}
+
+.userLogo {
+  font-size: 30px;
+}
+
+.waves {
+  width: 100%;
+  z-index: 99;
+  margin-top: 20px;
+  padding: 0px;
+}
