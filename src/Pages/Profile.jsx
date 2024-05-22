@@ -1,5 +1,6 @@
 import React from 'react'
 import profile from '../assets/Images/profile-temp.png'
+import { FcCancel, FcOk, FcProcess } from 'react-icons/fc'
 
 function Profile() {
   return (
@@ -41,7 +42,7 @@ function Profile() {
 </nav>
 </div>
 <div className='flex justify-center align-middle bg-slate-100 h-screen'>
-<div className= 'mt-20 bg-white h-2/3 w-2/3 border-gray-700 shadow-lg  overflow-hidden grid grid-cols-2 p-2'>
+<div className= 'mt-20 bg-white h-2/3 w-[80%] border-gray-700 shadow-lg  overflow-hidden grid grid-cols-2 p-2'>
   <div className='col-span-1 border-r-2 border-r-gray-200'>
   <div className='h-96 bg-orange-100 w-80 rounded-3xl mt-32 ml-16  shadow-lg '>
     <div className='flex justify-center'>
@@ -59,31 +60,33 @@ function Profile() {
   </div>
 
 
-<div className='col-span-1 p-5 px-10'>
-<h6 className='font-semibold text-2xl border-b-2 border-b-gray-200 text-center '>Activities</h6>
-<table className=' min-w-[460px] mt-4 border-2'>
-  <thead className='border-b-2'>
-    <tr  className='flex justify-between px-3 font-semibold text-lg'>
+<div className='col-span-1 p-5 px-7'>
+<h6 className='font-semibold text-[20px] border-b-[1px] border-b-orange-100 text-center '>Activities</h6>
+<table className=' min-w-[450px] mt-4 border-2 border-orange-100'>
+  <thead className='border-b-4 border-b-orange-100'>
+    <tr  className='flex justify-between px-3 font-semibold text-md'>
       <td >#</td>
-      <td>Activity</td>
+      <td className='ml-[-80px]'>Activity</td>
       <td >Status</td>
     </tr>
   </thead>
   <tbody>
-    <tr className='flex justify-between px-3 font-semibold text-lg mt-8'>
+    <tr className='flex justify-between px-3 font-semibold text-md mt-8'>
       <td>1</td>
       <td>Scholarship 1</td>  
-       <td>Pending</td>
+       <td className='flex gap-1'>Approved <FcOk  className='mt-1' />
+ </td>
     </tr>
-    <tr className='flex justify-between px-3 font-semibold text-lg mt-4'>
+    <tr className='flex justify-between px-3 font-semibold text-md mt-4'>
       <td>2</td>
       <td>Scholarship 2</td>  
-       <td>Pending</td>
+       <td  className='flex gap-1'> Rejected <FcCancel  className='mt-1'/> </td>
     </tr>
-    <tr className='flex justify-between px-3 font-semibold text-lg mt-4'>
+    <tr className='flex justify-between px-3 font-semibold text-md mt-4'>
       <td>3</td>
       <td>Scholarship 3</td>  
-       <td>Pending</td>
+       <td className='flex gap-1'>Pending <FcProcess className='mt-2' />
+ </td>
     </tr>
   </tbody>
 </table>
