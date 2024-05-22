@@ -2,17 +2,18 @@
   background: linear-gradient(to left, #ffffff, #e6e6e6);
   height: 120vh;
   width: 100vw;
-  /* position: fixed; */
+  position: absolute;
+  overflow-x: hidden;
 }
 
 .color-div {
   background-color: white;
-  width: 27%;
-  height: 100%;
+  width: 946px;
+  height: 80vh;
 }
 
 .form-floating {
-  width: 290px
+  width: 390px
 }
 
 .reg-div {
@@ -32,6 +33,6 @@
 .waves {
   width: 100%;
   z-index: 99;
-  margin-top: 0px;
+  margin-top: 20px;
   padding: 0px;
 }
