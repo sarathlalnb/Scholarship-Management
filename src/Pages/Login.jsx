@@ -4,6 +4,7 @@ import Lottie from 'lottie-react';
 import { FaUser } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import waves from '../waves2.json';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -28,10 +29,14 @@ function Login() {
       const response = await axios.post('http://127.0.0.1:8000/login/', formData);
       const { token } = response.data;
       localStorage.setItem('token', token);
-      navigate('/home'); // Redirect to the home page or another protected route
+      toast.success('Welcome User');
+      setTimeout(()=>{
+        navigate('/home');
+      },2000)
     } catch (error) {
       console.error('Error logging in:', error);
       setError('Invalid username or password');
+
     }
   };
 
@@ -84,6 +89,7 @@ function Login() {
             <Lottie animationData={waves} loop={true} />
           </div>
         </div>
+        <ToastContainer/>
       </center>
     </>
   );

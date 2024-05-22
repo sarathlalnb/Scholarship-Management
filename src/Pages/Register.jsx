@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import Lottie from 'lottie-react';
 import { FaUser } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import waves from '../waves2.json';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Lottie from 'lottie-react'
-import React from 'react'
-import { FaUser } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
 import waves from '../waves2.json'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
   // State variables for form inputs
@@ -21,6 +18,8 @@ function Register() {
     phone: '',
     address: ''
   });
+
+  const naviagate = useNavigate();
 
   // Handle input changes
   const handleChange = (e) => {
@@ -38,8 +37,13 @@ function Register() {
     try {
       const response = await axios.post('http://127.0.0.1:8000/st_reg/', formData);
       console.log('Response from the server:', response.data); 
+      toast.success('Registration successful!');
+      setTimeout(()=>{
+        naviagate('/login');
+      },2000)
     } catch (error) {
       console.error('Error submitting the form:', error);
+      toast.error('Error submitting the form!');
     }
   };
 
@@ -58,29 +62,29 @@ function Register() {
 
           <div className='col-span-1 mt-3 '>
 
-            <form className='mt-2 ' >
+            <form className='mt-2 ' onSubmit={handleSubmit}  >
               <div class="form-floating flex flex-col">
-                <input type="text" class="form-control rounded shadow-2xl border-2 border-gray-100 h-9 p-2" id="floatingPassword" placeholder='Username' />
+                <input type="text" class="form-control rounded shadow-2xl border-2 border-gray-100 h-9 p-2" id="floatingPassword" name="username" placeholder='Username' value={formData.username} onChange={handleChange} />
               </div>
 
               <div class="form-floating flex flex-col mt-3">
-                <input type="text" class="form-control rounded shadow-2xl border-2  border-gray-100 h-9 p-2" id="floatingPassword" placeholder='First name' />
+                <input type="text" class="form-control rounded shadow-2xl border-2  border-gray-100 h-9 p-2" id="floatingPassword" name="firstname" placeholder='First name'value={formData.firstname} onChange={handleChange} />
               </div>
 
               <div class="form-floating flex flex-col mt-3">
-                <input type="text" class="form-control rounded shadow-2xl border-2  border-gray-100 h-9 p-2" id="floatingPassword" placeholder='Last name' />
+                <input type="text" class="form-control rounded shadow-2xl border-2  border-gray-100 h-9 p-2" id="floatingPassword" name="lastname" placeholder='Last name'value={formData.lastname} onChange={handleChange} />
               </div>
               <div class="form-floating flex flex-col mt-3">
-                <input type="email" class="form-control rounded shadow-2xl border-2  border-gray-100 h-9 p-2" id="floatingPassword" placeholder='E-mail' />
+                <input type="email" class="form-control rounded shadow-2xl border-2  border-gray-100 h-9 p-2" id="floatingPassword" name="email" placeholder='E-mail' value={formData.email} onChange={handleChange}/>
               </div>
               <div class="form-floating flex flex-col mt-3">
-                <input type="password" class="form-control rounded shadow-2xl border-2  border-gray-100 h-9 p-2" id="floatingPassword" placeholder='Password' />
+                <input type="password" class="form-control rounded shadow-2xl border-2  border-gray-100 h-9 p-2" id="floatingPassword" name="password" placeholder='Password'value={formData.password} onChange={handleChange} />
               </div>
               <div class="form-floating flex flex-col mt-3">
-                <input type="number" class="form-control rounded shadow-2xl border-2 h-9 p-2  border-gray-100" id="floatingPassword" placeholder='Phone' />
+                <input type="number" class="form-control rounded shadow-2xl border-2 h-9 p-2  border-gray-100" id="floatingPassword"  name="phone" placeholder='Phone'value={formData.phone} onChange={handleChange} />
               </div>
               <div class="form-floating flex flex-col mt-3">
-                <input type="text-area" class="form-control rounded shadow-2xl border-2 h-9 p-2  border-gray-100" id="floatingPassword" placeholder='Address' />
+                <input type="text-area" class="form-control rounded shadow-2xl border-2 h-9 p-2  border-gray-100" id="floatingPassword"  name="address" placeholder='Address'value={formData.address} onChange={handleChange} />
               </div>
               <div className='mt-5'>
                 <p className='reg font-semibold'>Already have an account? <Link to={'/login'} className='underline'>Login </Link>  </p>
@@ -98,7 +102,9 @@ function Register() {
           <Lottie animationData={waves} loop={true} />
         </div>
       </div>
-    </center></div>
+    </center>
+    <ToastContainer />
+    </div>
   )
 }
 

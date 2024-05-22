@@ -1,9 +1,9 @@
 .bg-image {
   background: linear-gradient(to left, #ffffff, #e6e6e6);
   height: 120vh;
-  width: 100vw;
+  width: 100%;
   position: absolute;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .color-div {
