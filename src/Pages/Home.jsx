@@ -6,7 +6,7 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -14,7 +14,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 900,
-  height: 600,
+  height: 500,
   bgcolor: '#EEEEEE',
   border: '#EEEEEE',
   boxShadow: 24,
@@ -25,6 +25,13 @@ function Home() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const navigate = useNavigate();
+
+  const clickApply=()=>{
+    navigate('/apply')
+  }
+
 
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: '#EEEEEE' }}>
@@ -118,7 +125,7 @@ function Home() {
                           <Button variant="outlined" size="small" onClick={handleOpen}>
                             View
                           </Button>
-                          <Button style={{ marginLeft: '20px' }} variant="outlined" size="small">
+                          <Button onClick={clickApply} style={{ marginLeft: '20px' }} variant="outlined" size="small">
                             Apply Now
                           </Button>
 
@@ -137,7 +144,7 @@ function Home() {
                           <Button variant="outlined" size="small">
                             View
                           </Button>
-                          <Button style={{ marginLeft: '20px' }} variant="outlined" size="small">
+                          <Button onClick={clickApply}  style={{ marginLeft: '20px' }} variant="outlined" size="small">
                             Apply Now
                           </Button>
                         </td>
