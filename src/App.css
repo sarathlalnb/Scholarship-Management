@@ -1,14 +1,14 @@
 .bg-image {
   background: linear-gradient(to left, #ffffff, #e6e6e6);
-  height: 100vh;
+  height: 120vh;
   width: 100vw;
-  position: fixed;
+  /* position: fixed; */
 }
 
 .color-div {
   background-color: white;
   width: 27%;
-  height: 60%;
+  height: 100%;
 }
 
 .form-floating {
