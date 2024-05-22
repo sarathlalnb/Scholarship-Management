@@ -11,6 +11,9 @@ function Home() {
   const clickApply=()=>{
     navigate('/apply')
   }
+  const clickProfile=()=>{
+    navigate('/profile')
+  }
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: '#EEEEEE' }}>
       <nav class="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
@@ -35,7 +38,7 @@ function Home() {
             </ul>
           </div>
           <div class="order-2 md:order-3">
-            <button class="px-4 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50  flex items-center gap-2 w-[60px] h-[50px] rounded-full">
+            <button onClick={clickProfile} class="px-4 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50  flex items-center gap-2 w-[60px] h-[50px] rounded-full">
 
 
               <span><FaUser style={{ fontSize: '28px' }} />
