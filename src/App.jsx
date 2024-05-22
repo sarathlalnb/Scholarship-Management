@@ -5,6 +5,7 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import Home from './Pages/Home'
 import Landing from './Pages/Landing'
+import StudentApplication from './Pages/StudentApplication'
 import Profile from './Pages/Profile'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path='/register' element={<Register/>}/>
       <Route path='/' element={<Landing/>}/>
       <Route path='/home' element={<Home/>}/>
+      <Route path='/apply' element={<StudentApplication/>}/>
       <Route path='/profile' element={<Profile/>}/>
 
 

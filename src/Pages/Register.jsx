@@ -6,6 +6,7 @@ import Lottie from 'lottie-react'
 import waves from '../waves2.json'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import register from '../assets/Images/register.jpg'
 
 function Register() {
   // State variables for form inputs
@@ -32,7 +33,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data before submission:', formData); // Log form data
+    console.log('Form data before submission:', formData); 
 
     try {
       const response = await axios.post('http://127.0.0.1:8000/st_reg/', formData);
@@ -57,7 +58,8 @@ function Register() {
 
         <div className='color-div row-auto rounded-lg lg:grid grid-cols-2 shadow mt-3 py-5' >
           <div className='col-span-1 border-r-2 border-r-yellow-50'>
-            <h1>HII</h1>
+            {/* <h1>Hii</h1> */}
+            <img src={register} alt="" />
           </div>
 
           <div className='col-span-1 mt-3 '>
