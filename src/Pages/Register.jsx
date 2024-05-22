@@ -1,14 +1,14 @@
-import Lottie from 'lottie-react'
-import React from 'react'
-import { FaUser } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import waves from '../waves2.json'
 import React, { useState } from 'react';
 import Lottie from 'lottie-react';
 import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import waves from '../waves2.json';
 import axios from 'axios';
+import Lottie from 'lottie-react'
+import React from 'react'
+import { FaUser } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import waves from '../waves2.json'
 
 function Register() {
   // State variables for form inputs
