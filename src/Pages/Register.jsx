@@ -33,7 +33,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data before submission:', formData); // Log form data
+    console.log('Form data before submission:', formData); 
 
     try {
       const response = await axios.post('http://127.0.0.1:8000/st_reg/', formData);
