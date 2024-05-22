@@ -57,7 +57,7 @@ function Home() {
             </ul>
           </div>
           <div class="order-2 md:order-3">
-            <Link to={'/profile'} class="px-4 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50  flex items-center gap-2 w-[60px] h-[60px] rounded-full">
+            <Link to={'/profile'} class="px-3 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50  flex items-center gap-2 w-[50px] h-[50px] rounded-full">
               <span><FaUser style={{ fontSize: '28px' }} />
               </span>
             </Link>
