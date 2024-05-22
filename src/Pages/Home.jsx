@@ -2,8 +2,15 @@ import React from 'react'
 import './Home.css'
 import { FaUser } from 'react-icons/fa'
 import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
+
+  const navigate = useNavigate();
+
+  const clickApply=()=>{
+    navigate('/apply')
+  }
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: '#EEEEEE' }}>
       <nav class="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
@@ -98,7 +105,7 @@ function Home() {
                           <Button variant="outlined" size="small">
                             View
                           </Button>
-                          <Button style={{ marginLeft: '20px' }} variant="outlined" size="small">
+                          <Button onClick={clickApply}  style={{ marginLeft: '20px' }} variant="outlined" size="small">
                             Apply Now
                           </Button>
 
@@ -117,7 +124,7 @@ function Home() {
                           <Button variant="outlined" size="small">
                             View
                           </Button>
-                          <Button style={{ marginLeft: '20px' }} variant="outlined" size="small">
+                          <Button onClick={clickApply} style={{ marginLeft: '20px' }} variant="outlined" size="small">
                             Apply Now
                           </Button>
                         </td>
