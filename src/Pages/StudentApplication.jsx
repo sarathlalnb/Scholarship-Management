@@ -90,7 +90,7 @@ function StudentApplication() {
             <div className='flex justify-center'>
                 <h1 className='text text-[50px] mt-5'>Application Form</h1>
             </div>
-            <div className='mx-auto rounded-2xl mt-5' style={{ width: '40%', height: '90vh', backgroundColor: 'white' }}>
+            <div className='mx-auto py-10 rounded-2xl mt-5' style={{ width: '40%', backgroundColor: 'white' }}>
 
 
                 <form className="max-w-md mx-auto py-10" onSubmit={handleSubmit}>
