@@ -2,8 +2,37 @@ import React from 'react'
 import './Home.css'
 import { FaUser } from 'react-icons/fa'
 import { Button } from '@mui/material'
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import { Link, useNavigate } from 'react-router-dom';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 900,
+  height: 500,
+  bgcolor: '#EEEEEE',
+  border: '#EEEEEE',
+  boxShadow: 24,
+  p: 4,
+};
 
 function Home() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const navigate = useNavigate();
+
+  const clickApply=()=>{
+    navigate('/apply')
+  }
+
+
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: '#EEEEEE' }}>
       <nav class="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
@@ -28,12 +57,10 @@ function Home() {
             </ul>
           </div>
           <div class="order-2 md:order-3">
-            <button class="px-4 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50  flex items-center gap-2 w-[60px] h-[50px] rounded-full">
-
-
+            <Link to={'/profile'} class="px-3 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50  flex items-center gap-2 w-[50px] h-[50px] rounded-full">
               <span><FaUser style={{ fontSize: '28px' }} />
               </span>
-            </button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -78,7 +105,7 @@ function Home() {
                         </th>
                         <th
                           class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-right  text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                          Buttons
+                        Actions
                         </th>
                       </tr>
                     </thead>
@@ -95,10 +122,10 @@ function Home() {
                           </p>
                         </td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-right text-sm">
-                          <Button variant="outlined" size="small">
+                          <Button variant="outlined" size="small" onClick={handleOpen}>
                             View
                           </Button>
-                          <Button style={{ marginLeft: '20px' }} variant="outlined" size="small">
+                          <Button onClick={clickApply} style={{ marginLeft: '20px' }} variant="outlined" size="small">
                             Apply Now
                           </Button>
 
@@ -117,7 +144,7 @@ function Home() {
                           <Button variant="outlined" size="small">
                             View
                           </Button>
-                          <Button style={{ marginLeft: '20px' }} variant="outlined" size="small">
+                          <Button onClick={clickApply}  style={{ marginLeft: '20px' }} variant="outlined" size="small">
                             Apply Now
                           </Button>
                         </td>
@@ -146,6 +173,52 @@ function Home() {
           </div>
         </body>
       </div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+
+        <Fade in={open}>
+          <Box sx={style}>
+            <h6 className='font-semibold text-3xl border-b-2 border-b-slate-400 p-2 border-w'>
+              Scholarship Details
+            </h6>
+            <div className=' grid grid-cols-2 p-4 mt-6'>
+
+              <div className='col-span-1 border-r-2 border-r-slate-400 p-4 w-[200px]'>
+                <p className='font-semibold mb-6 text-lg'>Scholarship name </p>
+                <p className='font-semibold mb-6 text-lg'>Description </p>
+                <p className='font-semibold mb-6 text-lg'>Eligibility </p>
+                <p className='font-semibold mb-6 text-lg'>Amount </p>
+                <p className='font-semibold mb-6 text-lg'>Duration </p>
+                <p className='font-semibold mb-6 text-lg'>Deadline </p>
+              </div>
+              <div className='col-span-1 p-4'>
+              <p className='font-semibold mb-6 text-lg'>Scholarship name </p>
+                <p className='font-semibold mb-6 text-lg'>Description </p>
+                <p className='font-semibold mb-6 text-lg'>Eligibility </p>
+                <p className='font-semibold mb-6 text-lg'>Amount </p>
+                <p className='font-semibold mb-6 text-lg'>Duration </p>
+                <p className='font-semibold mb-6 text-lg'>Deadline </p>
+              </div>
+
+              <hr />
+            </div>
+            <Button style={{ marginLeft: '680px', marginTop: '20px' }} variant="outlined" size="small" className='button w-28 h-12 '>
+              APPLY NOW
+            </Button>
+          </Box>
+        </Fade>
+      </Modal>
     </div>
   )
 }
