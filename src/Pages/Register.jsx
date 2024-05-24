@@ -3,7 +3,7 @@ import { FaUser } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Lottie from 'lottie-react'
-import waves from '../waves2.json'
+import waves from '../waves3new.json'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import register from '../assets/Images/register.jpg'
@@ -50,16 +50,17 @@ function Register() {
 
   return (
     <div>    <center>
-      <div className='bg-image'>
-        <div className='flex justify-center gap-2 mt-3'>
+      <div className='bg-image '>
+        {/* <div className='flex justify-center gap-2 mt-3'>
           <FaUser className='userLogo text-black font-bold' />
           <h2 className=' text-black text-[20px] font-bold '> Register</h2>
-        </div>
+        </div> */}
 
-        <div className='color-div row-auto rounded-lg lg:grid grid-cols-2 shadow mt-3 py-5' >
+        <div className='color-div row-auto rounded-lg lg:grid grid-cols-2  mt-3 py-5 shadow-2xl' >
           <div className='col-span-1 border-r-2 border-r-yellow-50'>
-            {/* <h1>Hii</h1> */}
-            <img src={register} alt="" />
+            <h1 className='font-bold text-3xl border-b-2 border-b-[#e6ac00] w-48 mt-5'>Welcome<span className='text-[#e6ac00]'>!</span></h1>
+            <p className='font-thin mt-4'>Lorem ipsum dolor sit <br /> amet consectetur, adipisicing elit . <br /> Ab laborum modi a, d</p>
+            <img className='w-72 mt-4' src={register} alt="" />
           </div>
 
           <div className='col-span-1 mt-3 '>
@@ -88,11 +89,11 @@ function Register() {
               <div class="form-floating flex flex-col mt-3">
                 <input type="text-area" class="form-control rounded shadow-2xl border-2 h-9 p-2  border-gray-100" id="floatingPassword"  name="address" placeholder='Address'value={formData.address} onChange={handleChange} />
               </div>
-              <div className='mt-5'>
+              <div className='mt-5 -ms-20'>
                 <p className='reg font-semibold'>Already have an account? <Link to={'/login'} className='underline'>Login </Link>  </p>
               </div>
-              <div className='reg-div flex justify-center drop-shadow-2xl rounded mt-4 bg-[#e6ac00]' >
-                <button variant='' type="submit" className='btn h-9 text-white'>
+              <div className='reg-div flex justify-center drop-shadow-2xl rounded mt-4 ms-2 bg-[#e6ac00]' >
+                <button variant='' type="submit" className='btn h-9 text-white w-'>
                   Register
                 </button>
               </div>

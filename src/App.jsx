@@ -20,8 +20,6 @@ function App() {
       <Route path='/home' element={<Home/>}/>
       <Route path='/apply' element={<StudentApplication/>}/>
       <Route path='/profile' element={<Profile/>}/>
-
-
     </Routes>
     </>
   )
