@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Home.css'
 import { FaUser } from 'react-icons/fa'
 import { Button } from '@mui/material'
@@ -7,6 +7,9 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+
 
 const style = {
   position: 'absolute',
@@ -23,15 +26,54 @@ const style = {
 
 function Home() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [data,setData]=useState({})
+  const handleOpen = (item) =>{
+    setOpen(true);
+    setData(item);
+  }
+  const handleClose = () => {
+    setOpen(false);
+    setData(null)
+  }
+  const [scholarship,setScholarship]=useState([]);
 
   const navigate = useNavigate();
 
-  const clickApply=()=>{
-    navigate('/apply')
+  const clickApply=(name)=>{
+    console.log(name);
+    navigate(`/apply/${name}`)
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+        const token = localStorage.getItem('token');
+        console.log(token);
+
+        if (!token) {
+           console.log("No token");
+            return;
+        }
+
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/list_scholarship', {
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(response);
+            setScholarship(response.data);
+        } catch (error) {
+            console.log(error.response ? error.response.data.detail : error.message);
+        } finally {
+            console.log("Error while Fetching");
+        }
+    };
+
+    fetchData();
+}, []);
+
+console.log(scholarship);
 
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: '#EEEEEE' }}>
@@ -110,45 +152,32 @@ function Home() {
                       </tr>
                     </thead>
                     <tbody>
-
-                      <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          ghfhjyh
-                        </td>
-
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-center text-sm">
-                          <p class="text-gray-900 whitespace-no-wrap">
-                            Jan 10, 2020
-                          </p>
-                        </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-right text-sm">
-                          <Button variant="outlined" size="small" onClick={handleOpen}>
-                            View
-                          </Button>
-                          <Button onClick={clickApply} style={{ marginLeft: '20px' }} variant="outlined" size="small">
-                            Apply Now
-                          </Button>
-
-
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="px-5 py-5 bg-white text-sm">
-                          yuhjkkhuuhjk
-                        </td>
-
-                        <td class="px-5 py-5 bg-white text-sm">
-                          <p class="text-gray-900 whitespace-no-wrap text-center">Jan 18, 2020</p>
-                        </td>
-                        <td class="px-5 py-5 bg-white text-sm text-right">
-                          <Button variant="outlined" size="small">
-                            View
-                          </Button>
-                          <Button onClick={clickApply}  style={{ marginLeft: '20px' }} variant="outlined" size="small">
-                            Apply Now
-                          </Button>
-                        </td>
-                      </tr>
+                        {
+                          scholarship.map((item,index)=>(
+                            <tr key={index}>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                              {item?.name}
+                            </td>
+    
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-center text-sm">
+                              <p class="text-gray-900 whitespace-no-wrap">
+                               {item?.deadline}
+                              </p>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-right text-sm">
+                              <Button variant="outlined" size="small" onClick={()=>handleOpen(item)}>
+                                View
+                              </Button>
+                              <Button onClick={()=>clickApply(item?.name)} style={{ marginLeft: '20px' }} variant="outlined" size="small">
+                                Apply Now
+                              </Button>
+    
+    
+                            </td>
+                          </tr>
+                          ))
+                        }
+                     
                     </tbody>
                   </table>
                   <div
@@ -203,19 +232,16 @@ function Home() {
                 <p className='font-semibold mb-6 text-lg'>Deadline </p>
               </div>
               <div className='col-span-1 p-4'>
-              <p className='font-semibold mb-6 text-lg'>Scholarship name </p>
-                <p className='font-semibold mb-6 text-lg'>Description </p>
-                <p className='font-semibold mb-6 text-lg'>Eligibility </p>
-                <p className='font-semibold mb-6 text-lg'>Amount </p>
-                <p className='font-semibold mb-6 text-lg'>Duration </p>
-                <p className='font-semibold mb-6 text-lg'>Deadline </p>
+              <p className='font-semibold mb-6 text-lg'>{data?.name} </p>
+                <p className='font-semibold mb-6 text-lg'>{data?.description} </p>
+                <p className='font-semibold mb-6 text-lg'>{data?.eligibility}</p>
+                <p className='font-semibold mb-6 text-lg'>{data?.amount} </p>
+                <p className='font-semibold mb-6 text-lg'>{data?.duration} </p>
+                <p className='font-semibold mb-6 text-lg'>{data?.deadline} </p>
               </div>
 
               <hr />
             </div>
-            <Button style={{ marginLeft: '680px', marginTop: '20px' }} variant="outlined" size="small" className='button w-28 h-12 '>
-              APPLY NOW
-            </Button>
           </Box>
         </Fade>
       </Modal>
