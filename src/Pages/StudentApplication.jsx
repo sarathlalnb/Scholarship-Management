@@ -29,7 +29,7 @@ function StudentApplication() {
         e.preventDefault();
         console.log("Submitted Data:", formData);
 
-        const token = localStorage.getItem('token'); // Assume token is stored in localStorage
+        const token = localStorage.getItem('token'); 
         console.log("Token retrieved from localStorage:", token);
 
         if (!token) {
