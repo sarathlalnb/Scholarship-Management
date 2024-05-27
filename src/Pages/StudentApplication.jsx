@@ -213,7 +213,6 @@ function StudentApplication() {
                 </form>
 
             </div>
-
         </div>
     )
 }
