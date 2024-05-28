@@ -29,7 +29,10 @@ function Login() {
     try {
       const response = await axios.post('http://127.0.0.1:8000/login/', formData);
       const { token } = response.data;
+      const {data} = response.data;
       localStorage.setItem('token', token);
+      localStorage.setItem('data',data)
+      console.log(data);
       toast.success('Welcome User');
       setTimeout(() => {
         navigate('/home');
