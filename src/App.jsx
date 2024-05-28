@@ -7,6 +7,7 @@ import Home from './Pages/Home'
 import Landing from './Pages/Landing'
 import StudentApplication from './Pages/StudentApplication'
 import Profile from './Pages/Profile'
+import AdminReg from './Admin/AdminReg'
 
 function App() {
  
@@ -20,6 +21,9 @@ function App() {
       <Route path='/home' element={<Home/>}/>
       <Route path='/apply' element={<StudentApplication/>}/>
       <Route path='/profile' element={<Profile/>}/>
+
+      <Route path='/adminreg' element={<AdminReg/>}/>
+
     </Routes>
     </>
   )
