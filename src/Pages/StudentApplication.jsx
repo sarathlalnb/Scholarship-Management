@@ -1,24 +1,22 @@
 import React, { useState } from 'react'
 import './StudentApplication.css'
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function StudentApplication() {
-
     const { name } = useParams();
     console.log(name);
 
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        fullName: '',
+        name: '',
         email: '',
         phone: '',
-        applicationDate: '',
-        scholarship: name,
         certificate: null,
         identity: null,
-        photo: null
+        photo: null,
+        scholarship: name,
     });
 
     const handleChange = (e) => {
@@ -33,25 +31,20 @@ function StudentApplication() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Submitted Data:", formData);
-
-        const token = localStorage.getItem('token'); // Assume token is stored in localStorage
-        console.log("Token retrieved from localStorage:", token);
-
+        const token = localStorage.getItem('token');
         if (!token) {
             alert("You need to be logged in to submit the form");
             return;
         }
 
         const data = new FormData();
-        data.append('fullName', formData.fullName);
+        data.append('name', formData.name);
         data.append('email', formData.email);
         data.append('phone', formData.phone);
-        data.append('applicationDate', formData.applicationDate);
-        data.append('scholarship', formData.scholarship);
         data.append('certificate', formData.certificate);
         data.append('identity', formData.identity);
         data.append('photo', formData.photo);
+        data.append('scholarship', formData.scholarship);
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/applyscholarship/', data, {
@@ -60,13 +53,35 @@ function StudentApplication() {
                     'Authorization': `Token ${token}`
                 }
             });
-            alert('Application submitted successfully');
+
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Application submitted succesfully",
+                showConfirmButton: false,
+                timer: 4000
+            }).then(() => {
+                navigate('/home');
+            });;
+            console.log("Response:", response);
         } catch (error) {
             console.error('There was an error submitting the form!', error);
-            alert('Failed to submit the application');
+            if (error.response) {
+                console.log('Error response data:', error.response.data);
+                console.log('Error response status:', error.response.status);
+                console.log('Error response headers:', error.response.headers);
+            } else if (error.request) {
+                console.log('Error request:', error.request);
+            } else {
+                console.log('Error message:', error.message);
+            }
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Error submitting",
+            });
         }
     };
-
     return (
         <div style={{ width: '100%', height: '140vh', backgroundColor: '#EEEEEE' }}>
             <nav class="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
@@ -103,11 +118,11 @@ function StudentApplication() {
                     <div className="relative z-0 w-full mb-5 group">
                         <input
                             type="text"
-                            name="fullName"
+                            name="name"
                             id="floating_first_name"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={formData.fullName}
+                            value={formData.name}
                             onChange={handleChange}
                             required
                         />
@@ -145,32 +160,32 @@ function StudentApplication() {
                             Phone number
                         </label>
                     </div>
-                    <div className="relative z-0 w-full mb-5 group">
+                    {/* <div className="relative z-0 w-full mb-5 group">
                         <input
                             type="date"
-                            name="applicationDate"
+                            name="application_date"
                             id="floating_application_date"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=""
-                            value={formData.applicationDate}
+                            value={formData.application_date}
                             onChange={handleChange}
                             required
                         />
                         <label htmlFor="floating_application_date" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Application date
                         </label>
-                    </div>
+                    </div> */}
                     <div className="relative z-0 w-full mb-5 group">
                         <input
                             type="text"
                             name="scholarship"
                             id="floating_scholarship"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             value={formData.scholarship}
                             onChange={handleChange}
                             required
-                            disabled
+                        // disabled
                         />
                         <label htmlFor="floating_scholarship" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Scholarship
