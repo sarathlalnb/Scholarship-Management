@@ -9,6 +9,7 @@ import AOS from "aos";
 import { PiBuildingOfficeFill } from "react-icons/pi";
 import { MdFlight } from "react-icons/md";
 import { FaBookOpen } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Landing() {
   const aboutUsRef = useRef(null);
@@ -72,7 +73,7 @@ function Landing() {
               </ul>
             </div>
             <div class="order-2 md:order-3">
-              <button class="px-4 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50 rounded-xl flex items-center gap-2">
+              <Link to={'/login'} class="px-4 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50 rounded-xl flex items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-5 w-5"
@@ -86,7 +87,7 @@ function Landing() {
                   />
                 </svg>
                 <span>Login</span>
-              </button>
+              </Link>
             </div>
           </div>
         </nav>
@@ -102,7 +103,7 @@ function Landing() {
             bright students
           </h1>
           <div className="flex ">
-            <button className="button1">Get started</button>
+            <Link to={'/register'} className="button1 px-1">Get started</Link>
             <button onClick={scrollToAbout} className="button2">
               Learn More{" "}
             </button>
