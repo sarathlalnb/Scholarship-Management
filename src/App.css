@@ -4,6 +4,12 @@
   width: 100%;
   position: fixed;
 }
+.ad-bg-image {
+  background: #2d3250;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+}
 
 .color-div {
   background-color: white;
