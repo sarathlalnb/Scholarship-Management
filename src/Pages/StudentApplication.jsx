@@ -5,8 +5,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 function StudentApplication() {
-    const { name } = useParams();
-    console.log(name);
+    const { id, name } = useParams();
+    console.log(id, name);
+   
 
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -16,7 +17,8 @@ function StudentApplication() {
         certificate: null,
         identity: null,
         photo: null,
-        scholarship: name,
+        scholarship: Number(id),
+        scholarship_name: name
     });
 
     const handleChange = (e) => {
@@ -44,10 +46,15 @@ function StudentApplication() {
         data.append('certificate', formData.certificate);
         data.append('identity', formData.identity);
         data.append('photo', formData.photo);
-        data.append('scholarship', formData.scholarship);
+        data.append('scholarship', Number(formData.scholarship));
+        data.append('scholarship_name', formData.scholarship_name);
+        console.log(formData);
+        console.log(typeof formData.scholarship);  
+        console.log(formData.scholarship);
+
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/applyscholarship/', data, {
+            const response = await axios.post(`http://127.0.0.1:8000/applyscholarship/${id}/`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Token ${token}`
@@ -112,7 +119,6 @@ function StudentApplication() {
                 <h1 className='text text-[50px] mt-5'>Application Form</h1>
             </div>
             <div className='mx-auto py-10 rounded-2xl mt-5' style={{ width: '40%', backgroundColor: 'white' }}>
-
 
                 <form className="max-w-md mx-auto py-10" onSubmit={handleSubmit}>
                     <div className="relative z-0 w-full mb-5 group">
@@ -182,13 +188,13 @@ function StudentApplication() {
                             id="floating_scholarship"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={formData.scholarship}
+                            value={formData.scholarship_name}
                             onChange={handleChange}
                             required
-                        // disabled
+                            disabled
                         />
                         <label htmlFor="floating_scholarship" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            Scholarship
+                            Scholarship-name
                         </label>
                     </div>
                     <div className="grid md:grid-cols-3 md:gap-6">
