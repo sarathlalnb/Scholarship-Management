@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import { duration, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -32,6 +32,7 @@ const AdminHome = () => {
     description:''
   });
   const [selectedContent, setSelectedContent] = useState('Content for Add Scholarship');
+  const [listitem,setListitem]=useState([]);
 
   const handleColumnClick = (content) => {
     setSelectedContent(content);
@@ -60,9 +61,7 @@ const AdminHome = () => {
 
     console.log('Token:',token); 
     try {
-      const response = await axios.post(
-        'http://127.0.0.1:8000/AddScholarship/',
-        formData,
+      const response = await axios.post( 'http://127.0.0.1:8000/AddScholarship/', formData,
         {
           headers: {
             Authorization: `Token ${token}`, // Include token in headers
@@ -82,6 +81,62 @@ const AdminHome = () => {
       console.error('Error:', error);
     }
   };
+/*
+
+  const getAllCourses = async () => {
+    try {
+      const result = await getAllCourseAPI();
+      if (result.status === 200) {
+        setAllCourses(result.data);
+      } else {
+        console.error('Failed to fetch courses:', result);
+      }
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  };
+
+  useEffect(() => {
+    getAllCourses();
+  }, []);
+  
+  */
+  const getListitems = async () => { 
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: " You need to be logged in to submit the form",
+    });
+      return;
+  } 
+
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/list_scholarshipbyadmin/',listitem,
+      {
+          headers: {
+            Authorization: `Token ${token}`, 
+          },
+        }
+        );
+         console.log(response.data); 
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Application submitted succesfully",
+        showConfirmButton: false,
+        timer: 4000
+    });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    getListitems();
+  }, []);
+
   return (
     <div className='bg-[#2d3250] w-full h-screen fixed'>
       <div className='w-full h-24 bg-[#31354e] border-b-2 p-8 border-b-[#6b6d77b4]'>
