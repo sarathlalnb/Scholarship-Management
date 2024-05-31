@@ -6,6 +6,13 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import { CardActionArea, CardActions } from '@mui/material';
+import Swal from 'sweetalert2';
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#454a6e',
@@ -40,15 +47,41 @@ const AdminHome = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: " You need to be logged in to submit the form",
+    });
+      return;
+  } 
+
+    console.log('Token:',token); 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/AddScholarship/', formData);
+      const response = await axios.post(
+        'http://127.0.0.1:8000/AddScholarship/',
+        formData,
+        {
+          headers: {
+            Authorization: `Token ${token}`, // Include token in headers
+          },
+        }
+      );
+
       console.log(response.data); 
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Application submitted succesfully",
+        showConfirmButton: false,
+        timer: 4000
+    });
     } catch (error) {
       console.error('Error:', error);
- 
     }
   };
-  
   return (
     <div className='bg-[#2d3250] w-full h-screen fixed'>
       <div className='w-full h-24 bg-[#31354e] border-b-2 p-8 border-b-[#6b6d77b4]'>
@@ -101,26 +134,26 @@ const AdminHome = () => {
                               <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                               <input type="text" name="name" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
                                value={formData.name}
-                               onChange={handleChange} placeholder="Scholarship Name" required=""/>
+                               onChange={handleChange} placeholder="Scholarship Name" required/>
                             </div>
                             <div className="w-full">
                               <label htmlFor="eligibility" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Eligibility</label>
                               <input type="text" name="eligibility" id="eligibility" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 value={formData.eligibility}
-                                onChange={handleChange}  placeholder="Eligibility" required=""/>
+                                onChange={handleChange}  placeholder="Eligibility" required/>
                             </div>
                             <div className="w-full">
                               <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
                               <input type="number" name="amount" id="amount" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 value={formData.amount}
-                                onChange={handleChange}  placeholder="$2999" required=""/>
+                                onChange={handleChange}  placeholder="$2999" required/>
                             </div>
                             <div>
                               <label htmlFor="duration" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Duration</label>
                               <input type="text" name="duration" id="duration" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 value={formData.duration}
                                 onChange={handleChange} 
-                                 placeholder="Duration in years" required=""/>
+                                 placeholder="Duration in years" required/>
                             </div>
                             <div>
                               <label htmlFor="deadline" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deadline</label>
@@ -145,6 +178,7 @@ const AdminHome = () => {
                               <textarea id="description" name='description' rows="7" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
                                 value={formData.description}
                                 onChange={handleChange} 
+                                required
                               placeholder="Your description here"></textarea>
                             </div>
                           </div>
@@ -154,12 +188,53 @@ const AdminHome = () => {
                         </form>
                       </div>
                     </section>      
-                  ) : (
-                    <div className="text-white">
-                      <div>
+                  ) :  selectedContent === 'Content for List' ? (
+                    <div>
+                      <section className="flex flex-col items-center justify-center w-full h-full bg-gray-800 
+                      dark:bg-gray-800
+                      "> 
+                      <div className='w-full h-screen'>
+                        <div className='   p-5'>
+                        
+                          <Grid container  >
+                            
+                               <Grid container item  >
+                                  <Card className='m-3'>
+                                      <CardActionArea>
+                                        <CardContent>
+                                         <Typography gutterBottom variant="h5" component="div">
+                                           Name
+                                         </Typography>
+                                         <Typography  variant="body2" color="text.secondary">
+                                           Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                         </Typography>
+                                        </CardContent>
+                                      </CardActionArea>
+                                     <CardActions className='flex justify-between  '>
+                                        <button className='hover:bg-green-700 hover:text-white p-3 m-7 rounded-2xl ring-1 ring-green-500' > APPROVE</button>
+                                        <button  className='hover:bg-red-700  hover:text-white p-3 m-7 rounded-2xl ring-1 ring-red-500'> REJECT</button>
+                                     </CardActions>
+                                  </Card>
+                               </Grid>
+                              
 
-                      </div>
+
+                          </Grid>
+                       </div>
+                        
+                         </div> </section>
                     </div>
+
+
+                  ): selectedContent === 'Content for cccccc' ? (
+                    <div className="text-white">
+                      <h2 className="text-xl  mb-4">cccccc Content</h2>
+                      <p>This is the detailed content for the "cccccc" section. You can add more HTML and styling as needed.</p>
+                    </div>
+
+
+                  ): (
+                    <div className="text-white">{selectedContent}</div>
                   )}
                 </div>
               </Item>
