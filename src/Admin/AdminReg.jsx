@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaUser } from 'react-icons/fa';
 import axios from 'axios';
 import Lottie from 'lottie-react'
 import waves from './adreg.json'
@@ -36,7 +35,7 @@ function AdminReg() {
       console.log('Response from the server:', response.data); 
       toast.success('Registration successful!');
       setTimeout(()=>{
-        naviagate('/login');
+        naviagate('/adminlogin');
       },2000)
     } catch (error) {
       console.error('Error submitting the form:', error);
@@ -73,7 +72,7 @@ function AdminReg() {
               </div>
 
               <div className='mt-5 -ms-20'>
-                <p className='reg font-semibold text-slate-200'>Already have an account? <Link to={'/login'} className='underline hover:text-slate-400'>Login </Link>  </p>
+                <p className='reg font-semibold text-slate-200'>Already have an account? <Link to={'/adminlogin'} className='underline hover:text-slate-400'>Login </Link>  </p>
               </div>
               <div className='reg-div flex justify-center drop-shadow-2xl rounded mt-4 ms-2 bg-[#f9b17a]' >
                 <button variant='' type="submit" className='btn h-9 text-slate-800 hover:text-lg hover:text-slate-200 hover:font-bold'>

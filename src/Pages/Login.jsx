@@ -24,9 +24,9 @@ function Login() {
     });
   };
 
-  const handleCheckboxChange = (e) => {
+/*   const handleCheckboxChange = (e) => {
     setIsAdmin(e.target.checked);
-  };
+  }; */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +38,7 @@ function Login() {
       localStorage.setItem('data', data);
       console.log(data);
      
-      setTimeout(() => {
+     /*  setTimeout(() => {
         if (isAdmin) {
           navigate('/adminhome');
           toast.success('Welcome Admin');
@@ -47,7 +47,8 @@ function Login() {
           navigate('/home');
            toast.success('Welcome User');
         }
-      }, 2000);
+      }, 2000); */
+      navigate('/home');
     } catch (error) {
       console.error('Error logging in:', error);
       setError('Invalid username or password');
@@ -102,7 +103,7 @@ function Login() {
                   </button>
                 </div>
 
-                <div className='flex mt-4'>
+               {/*  <div className='flex mt-4'>
                   <input
                     type="checkbox"
                     className='mt-1 font-semibold'
@@ -110,7 +111,7 @@ function Login() {
                     onChange={handleCheckboxChange}
                   />
                   <small className='ms-2 font-semibold'>Login as Admin </small>
-                </div>
+                </div> */}
               </form>
             </div>
           </div>
