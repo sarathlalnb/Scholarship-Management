@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import { duration, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -32,6 +32,7 @@ const AdminHome = () => {
     description:''
   });
   const [selectedContent, setSelectedContent] = useState('Content for Add Scholarship');
+  const [listitem,setListitem]=useState([]);
 
   const handleColumnClick = (content) => {
     setSelectedContent(content);
@@ -60,15 +61,15 @@ const AdminHome = () => {
 
     console.log('Token:',token); 
     try {
-      const response = await axios.post(
-        'http://127.0.0.1:8000/AddScholarship/',
-        formData,
+      const response = await axios.post( 'http://127.0.0.1:8000/AddScholarship/', formData,
         {
+          
           headers: {
             Authorization: `Token ${token}`, // Include token in headers
           },
         }
       );
+      
 
       console.log(response.data); 
       Swal.fire({
@@ -82,6 +83,38 @@ const AdminHome = () => {
       console.error('Error:', error);
     }
   };
+
+  const getListitems = async () => { 
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: " You need to be logged in to submit the form",
+    });
+      return;
+  } 
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/list_scholarshipbyadmin/',listitem,
+      {
+          headers: { Authorization: `Token ${token}`}
+      });
+         console.log(response.data); 
+         setListitem(response.data);
+   
+         /*  
+          Swal.fire({
+        position: "center", icon: "success", title: "Application submitted succesfully", showConfirmButton: false, timer: 4000
+          });
+                 */
+    } catch (error) {
+      console.error('Error:', error);
+    }};
+
+  useEffect(() => {
+    getListitems();
+  },[]);
+
   return (
     <div className='bg-[#2d3250] w-full h-screen fixed'>
       <div className='w-full h-24 bg-[#31354e] border-b-2 p-8 border-b-[#6b6d77b4]'>
@@ -190,33 +223,51 @@ const AdminHome = () => {
                     </section>      
                   ) :  selectedContent === 'Content for List' ? (
                     <div>
-                      <section className="flex flex-col items-center justify-center w-full h-full bg-gray-800 
-                      dark:bg-gray-800
+                      <section className="w-[100%] h-[90vh] bg-gray-800 
+                      dark:bg-gray-800 overflow-auto p-2
                       "> 
-                      <div className='w-full h-screen'>
-                        <div className='   p-5'>
+                      <div className=''>
+                        <div className=''>
                         
-                          <Grid container  >
-                            
-                               <Grid container item  >
-                                  <Card className='m-3'>
+                          <Grid container   >
+                          {listitem.map((item,index) => (
+                               <Grid container item key={index} lg={4} md={3} xs={4} xs:w-20 truncate >
+                                 <div className='w-screen h-80'>
+                                  <Card className='m-2'>
                                       <CardActionArea>
                                         <CardContent>
-                                         <Typography gutterBottom variant="h5" component="div">
-                                           Name
+                                         <Typography  gutterBottom variant="h5" component="div">
+                                           {item.name}
                                          </Typography>
-                                         <Typography  variant="body2" color="text.secondary">
-                                           Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                         </Typography>
+                                         <Typography className=''  variant="body2" color="text.secondary">
+                                          <div className='mb-2 text-center text-lg'>
+                                          {item.description}
+                                          </div>
+                                         </Typography >
+                                         <div className='flex justify-center font-bold text-lg'>
+                                         Eligibility : {item.eligibility}
+                                         </div>
+                                         <div  className='flex justify-center font-bold text-lg'>
+                                         Amount : {item.amount}
+                                         </div>
+                                         <div  className='flex justify-center font-bold text-lg'>
+                                         Duration : {item.duration}
+                                         </div>
+                                         <div  className='flex justify-center font-bold text-lg'>
+                                         Deadline : {item.deadline}
+                                         </div>
                                         </CardContent>
                                       </CardActionArea>
-                                     <CardActions className='flex justify-between  '>
+                                  
+                                   {/*   <CardActions className='flex justify-between  '>
                                         <button className='hover:bg-green-700 hover:text-white p-3 m-7 rounded-2xl ring-1 ring-green-500' > APPROVE</button>
                                         <button  className='hover:bg-red-700  hover:text-white p-3 m-7 rounded-2xl ring-1 ring-red-500'> REJECT</button>
-                                     </CardActions>
+                                     </CardActions> */}
+
                                   </Card>
+                                </div>
                                </Grid>
-                              
+                              ))}
 
 
                           </Grid>
