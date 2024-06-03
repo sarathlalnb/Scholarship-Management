@@ -23,6 +23,7 @@ function App() {
       <Route path="/apply/:id/:name" element={<StudentApplication />}/>
       <Route path='/profile' element={<Profile/>}/>
 
+
       <Route path='/adminreg' element={<AdminReg/>}/>
       <Route path='/adminhome' element={<AdminHome/>}/>
 
