@@ -32,7 +32,7 @@ function AdminReg() {
     console.log('Form data before submission:', formData); 
 
     try {
-    //   const response = await axios.post('http://127.0.0.1:8000/st_reg/', formData);
+      const response = await axios.post('http://127.0.0.1:8000/registration/', formData);
       console.log('Response from the server:', response.data); 
       toast.success('Registration successful!');
       setTimeout(()=>{
@@ -53,7 +53,7 @@ function AdminReg() {
           <h2 className=' text-black text-[20px] font-bold '> Register</h2>
         </div> */}
 
-        <div className='color-div row-auto rounded-lg bg-[#424769] lg:grid grid-cols-2 sm:grid-cols-2  mt-3 py-5 shadow-2xl overflow-auto'  >
+        <div className='color-div row-auto rounded-lg bg-[#424769] lg:grid grid-cols-2 sm:grid-cols-2  xs:grid-cols-2 mt-3 py-5 shadow-2xl overflow-auto'  >
           <div className='col-span-1 border-r-2 border-r-[#f9b17a]'>
             <h1 className='font-bold text-[#f9b17a] text-3xl border-b-2 border-b-[#2d3250]  w-48 mt-5'>Welcome<span className='text-slate-500'>!</span></h1>
             <p className='font-thin mt-4 text-slate-200'>Lorem ipsum dolor sit <br /> amet consectetur, adipisicing elit . <br /> Ab laborum modi a, d</p>

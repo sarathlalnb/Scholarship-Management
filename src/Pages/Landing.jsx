@@ -97,22 +97,22 @@ function Landing() {
         className="grid grid-cols-2 max-md:grid-cols-1"
       >
         <div className="col-span-1 grid place-items-center px-9">
-         <div>
-         <h1 className="text-1 text-[55px] ">
-            Free <span style={{ color: "#e6ac00" }}>Scholarship</span> for every
-            bright students
-          </h1>
-          <div className="flex ">
-            <Link to={'/register'} className="button1 px-1">Get started</Link>
-            <button onClick={scrollToAbout} className="button2">
-              Learn More{" "}
-            </button>
+          <div>
+            <h1 className="text-1 text-[55px] ">
+              Free <span style={{ color: "#e6ac00" }}>Scholarship</span> for every
+              bright students
+            </h1>
+            <div className="flex ">
+              <Link to={'/register'} className="button1 px-1">Get started</Link>
+              <button onClick={scrollToAbout} className="button2">
+                Learn More{" "}
+              </button>
+            </div>
           </div>
-         </div>
         </div>
         <div className="col-span-1 grid place-items-center">
           <div
-           
+
             className=" "
           >
             <img
@@ -125,7 +125,7 @@ function Landing() {
       </div>
       <div className="py-9"
         ref={aboutUsRef}
-        style={{ width: "100%",  backgroundColor: "#EEF7FF" }}
+        style={{ width: "100%", backgroundColor: "#EEF7FF" }}
       >
         <h1
           style={{ color: "#e6ac00" }}
