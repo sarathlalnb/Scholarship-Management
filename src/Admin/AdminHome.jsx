@@ -289,7 +289,7 @@ const AdminHome = () => {
                   ) :  selectedContent === 'Content for List' ? (
                     <div>
                       <section className="w-[100%] h-[85vh] bg-gray-800 
-                      dark:bg-gray-800 overflow-auto p-2 
+                      dark:bg-gray-800 overflow-auto p-2 scroll-smooth 
                       "> 
                       <div>
                         <div>
@@ -298,16 +298,16 @@ const AdminHome = () => {
                             </div>
                           <Grid container   >
                           {listitem.map((item,index) => (
-                               <Grid container item key={index} lg={4} md={3} xs={4} xs:w-20 truncate >
+                               <Grid container item key={index} lg={3} md={4} xs={12} xl={3} xs:w-20 truncate >
                                  <div className='w-screen h-80'>
-                                  <Card className='m-2'>  
+                                  <Card className='m-2 h-[230px] w-[250px]  mb-5 border-2 border-slate-800'>  
                                       <CardActionArea>
                                         <CardContent>
                                          <Typography  gutterBottom variant="h5" component="div">
                                            {item.name}
                                          </Typography>
                                          <Typography className=''  variant="body2" color="text.secondary">
-                                          <div className='mb-2 text-center text-lg'>
+                                          <div className='mb-3 text-center text-lg'>
                                           {item.description}
                                           </div>
                                          </Typography >
