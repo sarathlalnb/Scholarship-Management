@@ -203,7 +203,7 @@ function AdminReg() {
               </div>
               <div className='reg-div flex justify-center drop-shadow-2xl rounded mt-4 ms-2 bg-[#f9b17a]' >
                 <button variant='' type="submit" className='btn h-9 text-slate-800 hover:text-lg hover:text-slate-200 hover:font-bold'>
-                  Register
+                  Login
                 </button>
               </div>
             </form>
