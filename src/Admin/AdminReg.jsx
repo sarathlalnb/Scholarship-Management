@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaUser } from 'react-icons/fa';
 import axios from 'axios';
 import Lottie from 'lottie-react'
 import waves from './adreg.json'
@@ -32,11 +31,11 @@ function AdminReg() {
     console.log('Form data before submission:', formData); 
 
     try {
-    //   const response = await axios.post('http://127.0.0.1:8000/st_reg/', formData);
+      const response = await axios.post('http://127.0.0.1:8000/registration/', formData);
       console.log('Response from the server:', response.data); 
       toast.success('Registration successful!');
       setTimeout(()=>{
-        naviagate('/login');
+        naviagate('/adminlogin');
       },2000)
     } catch (error) {
       console.error('Error submitting the form:', error);
@@ -53,7 +52,7 @@ function AdminReg() {
           <h2 className=' text-black text-[20px] font-bold '> Register</h2>
         </div> */}
 
-        <div className='color-div row-auto rounded-lg bg-[#424769] lg:grid grid-cols-2 sm:grid-cols-2  mt-3 py-5 shadow-2xl overflow-auto'  >
+        <div className='color-div row-auto rounded-lg bg-[#424769] lg:grid grid-cols-2 sm:grid-cols-2  xs:grid-cols-2 mt-3 py-5 shadow-2xl overflow-auto'  >
           <div className='col-span-1 border-r-2 border-r-[#f9b17a]'>
             <h1 className='font-bold text-[#f9b17a] text-3xl border-b-2 border-b-[#2d3250]  w-48 mt-5'>Welcome<span className='text-slate-500'>!</span></h1>
             <p className='font-thin mt-4 text-slate-200'>Lorem ipsum dolor sit <br /> amet consectetur, adipisicing elit . <br /> Ab laborum modi a, d</p>
@@ -73,7 +72,7 @@ function AdminReg() {
               </div>
 
               <div className='mt-5 -ms-20'>
-                <p className='reg font-semibold text-slate-200'>Already have an account? <Link to={'/login'} className='underline hover:text-slate-400'>Login </Link>  </p>
+                <p className='reg font-semibold text-slate-200'>Already  an admin? <Link to={'/adminlogin'} className='underline hover:text-slate-400'>Login </Link>  </p>
               </div>
               <div className='reg-div flex justify-center drop-shadow-2xl rounded mt-4 ms-2 bg-[#f9b17a]' >
                 <button variant='' type="submit" className='btn h-9 text-slate-800 hover:text-lg hover:text-slate-200 hover:font-bold'>

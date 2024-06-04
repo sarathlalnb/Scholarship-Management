@@ -5,13 +5,14 @@ import { FaUser } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import waves from '../waves3new.json';
 import { ToastContainer, toast } from 'react-toastify';
-import pattern from '../assets/Images/patterns.png'
+import pattern from '../assets/Images/patterns.png';
 
 function Login() {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
+  const [isAdmin, setIsAdmin] = useState(false); // State for admin checkbox
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -23,25 +24,36 @@ function Login() {
     });
   };
 
+/*   const handleCheckboxChange = (e) => {
+    setIsAdmin(e.target.checked);
+  }; */
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     try {
       const response = await axios.post('http://127.0.0.1:8000/login/', formData);
-      const { token } = response.data;
-      const {data} = response.data;
+      const { token, data } = response.data;
       localStorage.setItem('token', token);
+      localStorage.setItem('data', data);
       localStorage.setItem('userId',data.id)
       localStorage.setItem('username', data.username)
       console.log(data);
-      toast.success('Welcome User');
-      setTimeout(() => {
-        navigate('/home');
-      }, 2000)
+     
+     /*  setTimeout(() => {
+        if (isAdmin) {
+          navigate('/adminhome');
+          toast.success('Welcome Admin');
+
+        } else {
+          navigate('/home');
+           toast.success('Welcome User');
+        }
+      }, 2000); */
+      navigate('/home');
     } catch (error) {
       console.error('Error logging in:', error);
       setError('Invalid username or password');
-
     }
   };
 
@@ -49,15 +61,14 @@ function Login() {
     <>
       <center>
         <div className='bg-image2'>
-        
           <div className='color-div2  rounded-md shadow-2xl mt-20 lg:grid grid-cols-2 '>
             <div className=' overflow-hidden col-span-1'>
               <img src={pattern} alt="" className='opacity-15 w-full h z-[-1]' />
-          <div className='z-[99] mt-[-450px]'>
-          <h1 className='font-bold text-[25px] border-b-2 border-b-[#e6ac00] w-48 mt-10'>Welcome Back<span className='text-[#e6ac00]'>!</span></h1>
-          <p className='mt-6 font-semibold text-lg'>Login For Exiting Features</p>
-            <p className='font-thin mt-4'>Lorem ipsum dolor sit <br /> amet consectetur, adipisicing elit . <br /> Ab laborum modi a, d</p>
-          </div>
+              <div className='z-[99] mt-[-450px]'>
+                <h1 className='font-bold text-[25px] border-b-2 border-b-[#e6ac00] w-48 mt-10'>Welcome Back<span className='text-[#e6ac00]'>!</span></h1>
+                <p className='mt-6 font-semibold text-lg'>Login For Exiting Features</p>
+                <p className='font-thin mt-4'>Lorem ipsum dolor sit <br /> amet consectetur, adipisicing elit . <br /> Ab laborum modi a, d</p>
+              </div>
             </div>
 
             <div className='mt-3 col-span-1 '>
@@ -93,15 +104,17 @@ function Login() {
                     Login
                   </button>
                 </div>
-          
-                <div className='flex mt-4'>
-                  <input type="checkbox" className='mt-1 font-semibold'/>
-                  <small className='ms-2 font-semibold'>Remember me</small>
-                </div>
-             
-               
+
+               {/*  <div className='flex mt-4'>
+                  <input
+                    type="checkbox"
+                    className='mt-1 font-semibold'
+                    checked={isAdmin}
+                    onChange={handleCheckboxChange}
+                  />
+                  <small className='ms-2 font-semibold'>Login as Admin </small>
+                </div> */}
               </form>
-             
             </div>
           </div>
           <div className='waves2'>

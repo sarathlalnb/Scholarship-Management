@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import { duration, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -6,6 +6,13 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import { CardActionArea, CardActions } from '@mui/material';
+import Swal from 'sweetalert2';
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#454a6e',
@@ -25,6 +32,7 @@ const AdminHome = () => {
     description:''
   });
   const [selectedContent, setSelectedContent] = useState('Content for Add Scholarship');
+  const [listitem,setListitem]=useState([]);
 
   const handleColumnClick = (content) => {
     setSelectedContent(content);
@@ -40,25 +48,89 @@ const AdminHome = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: " You need to be logged in to submit the form",
+    });
+      return;
+  } 
+
+    console.log('Token:',token); 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/AddScholarship/', formData);
+      const response = await axios.post( 'http://127.0.0.1:8000/AddScholarship/', formData,
+        {
+          
+          headers: {
+            Authorization: `Token ${token}`, // Include token in headers
+          },
+        }
+      );
+      
+
       console.log(response.data); 
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Application submitted succesfully",
+        showConfirmButton: false,
+        timer: 4000
+    });
     } catch (error) {
       console.error('Error:', error);
- 
     }
   };
-  
+
+  const getListitems = async () => { 
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: " You need to be logged in to submit the form",
+    });
+      return;
+  } 
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/list_scholarshipbyadmin/',listitem,
+      {
+          headers: { Authorization: `Token ${token}`}
+      });
+         console.log(response.data); 
+         setListitem(response.data);
+   
+         /*  
+          Swal.fire({
+        position: "center", icon: "success", title: "Application submitted succesfully", showConfirmButton: false, timer: 4000
+          });
+                 */
+    } catch (error) {
+      console.error('Error:', error);
+    }};
+
+  useEffect(() => {
+    getListitems();
+  },[]);
+
   return (
     <div className='bg-[#2d3250] w-full h-screen fixed'>
-      <div className='w-full h-24 bg-[#31354e] border-b-2 p-8 border-b-[#6b6d77b4]'>
-        <div className='flex justify-start ms-40'>
-          <div className='pe-5 text-slate-50'>logo</div>
-          <div className='text-slate-50'>Name</div>
+      <div className='w-full h-24 bg-[#31354e] border-b-2 p-6 border-b-[#6b6d77b4]'>
+        <div className='flex justify-start text-[#e6ac00] ms-40'>
+
+            <svg xmlns="http://www.w333.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+            </svg>
+
+          <div className='text-slate-50 ms-5 text-3xl font-mono mt-1'>Scholar Hub</div>
         </div>
-        <div className='flex justify-end m-[-25px] ms-40'>
+        <div className='flex justify-end m-[-29px] ms-40'>
           <div className='pe-10'><Avatar>A</Avatar></div>
-          <div className='pe-10 text-lg font-semibold text-slate-200 pt-2'>Admin Name</div>
+          <div className='pe-10 text-lg font-semibold text-slate-200 pt-2 me-5'>Admin Name</div>
         </div>
       </div>
 
@@ -89,11 +161,11 @@ const AdminHome = () => {
               </Item>
             </Grid>
             <Grid xs={8} md={9} lg={10}>
-              <Item className='h-screen'>
-                <div>
+              <Item className='h-screen overflow-auto'>
+                <div >
                   {selectedContent === 'Content for Add Scholarship' ? (
-                    <section className="bg-white dark:bg-gray-900">
-                      <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+                    <section className="bg-white dark:bg-gray-900 ">
+                      <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16 ">
                         <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new Scholarship</h2>
                         <form onSubmit={handleSubmit}>
                           <div className="grid gap-6 sm:grid-cols-2 sm:gap-6">
@@ -101,26 +173,26 @@ const AdminHome = () => {
                               <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                               <input type="text" name="name" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
                                value={formData.name}
-                               onChange={handleChange} placeholder="Scholarship Name" required=""/>
+                               onChange={handleChange} placeholder="Scholarship Name" required/>
                             </div>
                             <div className="w-full">
                               <label htmlFor="eligibility" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Eligibility</label>
                               <input type="text" name="eligibility" id="eligibility" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 value={formData.eligibility}
-                                onChange={handleChange}  placeholder="Eligibility" required=""/>
+                                onChange={handleChange}  placeholder="Eligibility" required/>
                             </div>
                             <div className="w-full">
                               <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
                               <input type="number" name="amount" id="amount" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 value={formData.amount}
-                                onChange={handleChange}  placeholder="$2999" required=""/>
+                                onChange={handleChange}  placeholder="$2999" required/>
                             </div>
                             <div>
                               <label htmlFor="duration" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Duration</label>
                               <input type="text" name="duration" id="duration" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 value={formData.duration}
                                 onChange={handleChange} 
-                                 placeholder="Duration in years" required=""/>
+                                 placeholder="Duration in years" required/>
                             </div>
                             <div>
                               <label htmlFor="deadline" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deadline</label>
@@ -145,21 +217,92 @@ const AdminHome = () => {
                               <textarea id="description" name='description' rows="7" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
                                 value={formData.description}
                                 onChange={handleChange} 
+                                required
                               placeholder="Your description here"></textarea>
                             </div>
                           </div>
-                          <button type="submit" className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-200 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-slate-600">
+                          <button type="submit" className="inline-flex items-center bg-slate-600 px-5 py-2.5 mt-4 mb-20 sm:mt-6 text-sm font-semibold text-center text-white bg-white-200 rounded-lg  focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-slate-100 hover:text-slate-800 ">
                             Add Scholarship
                           </button>
                         </form>
                       </div>
                     </section>      
-                  ) : (
-                    <div className="text-white">
-                      <div>
 
-                      </div>
+
+
+                  ) :  selectedContent === 'Content for List' ? (
+                    <div>
+                      <section className="w-[100%] h-[85vh] bg-gray-800 
+                      dark:bg-gray-800 overflow-auto p-2 scroll-smooth 
+                      "> 
+                      <div>
+                        <div>
+                            <div className='text-4xl font-bold font-serif text-slate-100 mb-9 mt-5'>
+                              Available Scholarships
+                            </div>
+                          <Grid container   >
+                          {listitem.map((item,index) => (
+                               <Grid container item key={index} lg={3} md={4} xs={12} xl={3} xs:w-20 truncate >
+                                 <div className='w-screen h-80'>
+                                  <Card className='m-2 h-[230px] w-[250px]  mb-5 border-2 border-slate-800'>  
+                                      <CardActionArea>
+                                        <CardContent>
+                                         <Typography  gutterBottom variant="h5" component="div">
+                                           {item.name}
+                                         </Typography>
+                                         <Typography className=''  variant="body2" color="text.secondary">
+                                          <div className='mb-3 text-center text-lg'>
+                                          {item.description}
+                                          </div>
+                                         </Typography >
+                                         <div className='flex justify-center font-bold text-lg'>
+                                         Eligibility : {item.eligibility}
+                                         </div>
+                                         <div  className='flex justify-center font-bold text-lg'>
+                                         Amount : {item.amount}
+                                         </div>
+                                         <div  className='flex justify-center font-bold text-lg'>
+                                         Duration : {item.duration}
+                                         </div>
+                                         <div  className='flex justify-center font-bold text-lg'>
+                                         Deadline : {item.deadline}
+                                         </div>
+                                        </CardContent>
+                                      </CardActionArea>
+                                  </Card>
+                                </div>
+                               </Grid>
+                              ))}
+                          </Grid>
+                       </div>
+                         </div> </section>
                     </div>
+                  ): selectedContent === 'Content for cccccc' ? (
+                    <div className="text-white">
+                      <h2 className="text-xl  mb-4"> Content</h2>
+                      
+                        <div className='bg-slate-900 p-5 h-[85vh] rounded-lg'>
+                            <Card sx={{ maxWidth: 345 }} >
+                              <CardActionArea>
+                                <CardContent>
+                                  <Typography gutterBottom variant="h5" component="div">
+                                    Name
+                                  </Typography>
+                                  <Typography variant="body2" color="text.secondary">
+                                    Lizards 
+                                  </Typography>
+                                </CardContent>
+                              </CardActionArea>
+                              <CardActions className='flex justify-between  '>
+                                 <button className='hover:bg-green-700 hover:text-white p-3 m-7 rounded-2xl ring-1 ring-green-500' > APPROVE</button>
+                                 <button  className='hover:bg-red-700  hover:text-white p-3 m-7 rounded-2xl ring-1 ring-red-500'> REJECT</button>
+                              </CardActions>
+                            </Card>
+                      </div>
+
+                    </div>
+                  ): (
+                    <div className="text-white">{selectedContent}</div>
                   )}
                 </div>
               </Item>

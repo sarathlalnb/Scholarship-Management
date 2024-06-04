@@ -25,8 +25,12 @@ const style = {
 };
 
 function Home() {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [data, setData] = useState({})
+  const [scholarship, setScholarship] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const handleOpen = (item) => {
     setOpen(true);
     setData(item);
@@ -35,15 +39,16 @@ function Home() {
     setOpen(false);
     setData(null)
   }
-  const [scholarship, setScholarship] = useState([]);
-
-  const navigate = useNavigate();
 
   const clickApply = (id, name) => {
     console.log(name);
     navigate(`/apply/${id}/${name}`)
   }
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
@@ -73,6 +78,11 @@ function Home() {
     fetchData();
   }, []);
 
+
+
+  const filteredScholarships = scholarship.filter((sch) =>
+    sch.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   console.log(scholarship);
 
   return (
@@ -82,7 +92,7 @@ function Home() {
 
           <div class="text-[#e6ac00] md:order-1">
 
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+            <svg xmlns="http://www.w333.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
@@ -128,7 +138,9 @@ function Home() {
                     </svg>
                   </span>
                   <input placeholder="Search"
-                    class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+                    class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                    value={searchQuery}
+                    onChange={handleSearch} />
                 </div>
               </div>
               <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -153,7 +165,7 @@ function Home() {
                     </thead>
                     <tbody>
                       {
-                        scholarship.map((item, index) => (
+                        filteredScholarships.map((item, index) => (
                           <tr key={index}>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                               {item?.name}
@@ -182,9 +194,9 @@ function Home() {
                   </table>
                   <div
                     class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-                    <span class="text-xs xs:text-sm text-gray-900">
+                   {/*  <span class="text-xs xs:text-sm text-gray-900">
                       Showing 1 to 4 of 50 Entries
-                    </span>
+                    </span> */}
                     <div class="inline-flex mt-2 xs:mt-0">
                       <button
                         class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
