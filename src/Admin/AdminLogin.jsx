@@ -186,7 +186,7 @@ function AdminReg() {
           <div className='col-span-1 border-r-2 border-r-[#f9b17a]'>
             <h1 className='font-bold text-[#f9b17a] text-3xl border-b-2 border-b-[#2d3250]  w-48 mt-5'>Welcome<span className='text-slate-500'>!</span></h1>
             <p className='font-thin mt-4 text-slate-200'>Lorem ipsum dolor sit <br /> amet consectetur, adipisicing elit . <br /> Ab laborum modi a, d</p>
-            <img className='w-80 mt-3' src={adregister} alt="" />
+            <img className='w-60 mt-2' src={adregister} alt="" />
           </div>
 
           <div className='col-span-1 mt-3 '>
@@ -203,7 +203,7 @@ function AdminReg() {
               </div>
               <div className='reg-div flex justify-center drop-shadow-2xl rounded mt-4 ms-2 bg-[#f9b17a]' >
                 <button variant='' type="submit" className='btn h-9 text-slate-800 hover:text-lg hover:text-slate-200 hover:font-bold'>
-                  Register
+                  Login
                 </button>
               </div>
             </form>
