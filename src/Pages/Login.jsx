@@ -31,7 +31,8 @@ function Login() {
       const { token } = response.data;
       const {data} = response.data;
       localStorage.setItem('token', token);
-      localStorage.setItem('data',data)
+      localStorage.setItem('userId',data.id)
+      localStorage.setItem('username', data.username)
       console.log(data);
       toast.success('Welcome User');
       setTimeout(() => {

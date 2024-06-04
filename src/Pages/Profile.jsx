@@ -1,8 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import profile from '../assets/Images/profile-temp.png'
 import { FcCancel, FcOk, FcProcess } from 'react-icons/fc'
+import axios from 'axios'
 
 function Profile() {
+
+  const [appliedScholarship, setAppliedScholarship] = useState(null)
+  const [userid, setUserId] = useState(null)
+  const [username, setUserName] = useState(null)
+
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    const storedUserName = localStorage.getItem('username');
+
+    if (storedUserId && storedUserName) {
+      setUserId(storedUserId);
+      setUserName(storedUserName)
+    }
+  }, []);
+
+
+
+  useEffect(() => {
+    const getAppliedScholarship = async () => {
+      const token = localStorage.getItem('token');
+      console.log(token);
+
+      if (!token) {
+        console.log("No token");
+        return;
+      }
+
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/list_applied_for_student/${userid}`, {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log(response);
+        setAppliedScholarship(response.data);
+      } catch (error) {
+        console.log(error.response ? error.response.data.detail : error.message);
+      } finally {
+        console.log("Error while Fetching");
+      }
+    };
+
+    if (userid) {
+      getAppliedScholarship();
+    }
+  }, [userid]);
+
   return (
     <>
       <div>
@@ -50,11 +100,9 @@ function Profile() {
                   {/* <input type="file"/> */}
                 </div>
                 <div className='flex flex-col items-center leading-tight mt-5'>
-                  <div className='font-mono text-3xl text-slate-600 tracking-tight font-extrabold'>Jack Joe</div>
-                  <div> +91 1234567891 </div>
-                  <div className='mt-2'> Veiken, </div>
-                  <div> Vestby 6, </div>
-                  <div> Kolåsveien  </div>
+                  <div className='font-mono text-3xl text-slate-600 tracking-tight font-extrabold'>{username}</div>
+                  <div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -71,23 +119,35 @@ function Profile() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className='flex justify-between px-3 font-semibold text-md mt-8'>
-                    <td>1</td>
-                    <td>Scholarship 1</td>
-                    <td className='flex gap-1'>Approved <FcOk className='mt-1' />
-                    </td>
-                  </tr>
-                  <tr className='flex justify-between px-3 font-semibold text-md mt-4'>
-                    <td>2</td>
-                    <td>Scholarship 2</td>
-                    <td className='flex gap-1'> Rejected <FcCancel className='mt-1' /> </td>
-                  </tr>
-                  <tr className='flex justify-between px-3 font-semibold text-md mt-4'>
-                    <td>3</td>
-                    <td>Scholarship 3</td>
-                    <td className='flex gap-1'>Pending <FcProcess className='mt-2' />
-                    </td>
-                  </tr>
+                  {
+                    appliedScholarship?.map((item, index) => (
+                      <tr key={index} className='flex justify-between px-3 font-semibold text-md mt-8'>
+                        <td>{index + 1}</td>
+                        <td>{item.scholarship_name}</td>
+                        <td className='flex gap-1'>
+                          {item.status === 'approved' && (
+                            <>
+                              <span>Approved</span>
+                              <FcOk className='mt-1' />
+                            </>
+                          )}
+                          {item.status === 'pending' && (
+                            <>
+                              <span>Pending</span>
+                              <FcCancel className='mt-1' />
+                            </>
+                          )}
+                          {item.status === 'processing' && (
+                            <>
+                              <span>Processing</span>
+                              <FcProcess className='mt-1' />
+                            </>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  }
+
                 </tbody>
               </table>
             </div>
