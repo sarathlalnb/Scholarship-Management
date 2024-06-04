@@ -48,7 +48,7 @@ function Home() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');

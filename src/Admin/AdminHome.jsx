@@ -9,9 +9,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea, CardActions, Fade, Modal } from '@mui/material';
 import Swal from 'sweetalert2';
-
+import { FcBusinessman, FcGraduationCap } from "react-icons/fc";
+import { IoMailUnread } from 'react-icons/io5';
+import Backdrop from '@mui/material/Backdrop';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -21,6 +23,20 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 900,
+  height: 500,
+  bgcolor: '#EEEEEE',
+  border: '#EEEEEE',
+  boxShadow: 24,
+  p: 4,
+};
+
 
 const AdminHome = () => {
   const [formData, setFormData] = useState({
@@ -33,6 +49,17 @@ const AdminHome = () => {
   });
   const [selectedContent, setSelectedContent] = useState('Content for Add Scholarship');
   const [listitem,setListitem]=useState([]);
+  const [applications,setApplications] = useState([])
+  const [open, setOpen] = React.useState(false);
+  const [data,setData] = useState({})
+  const handleOpen = (items) =>{
+    setOpen(true);
+    setData(items)
+  } 
+  const handleClose = () => {
+    setOpen(false);
+  setData(null)
+}
 
   const handleColumnClick = (content) => {
     setSelectedContent(content);
@@ -111,11 +138,40 @@ const AdminHome = () => {
       console.error('Error:', error);
     }};
 
+    //list all applied scholarships 
+
+    const appliedScholarships = async ()=>{
+      const token = localStorage.getItem('token')
+      if(!token){
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: " You need to be logged in to submit the form",
+      });
+      return;
+      }
+     
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/application_viewset/',{
+          headers:{
+            Authorization:`Token ${token}`,
+            "Content-Type":"application/json"
+          }
+        }  , applications)
+         console.log(response.data)
+         setApplications(response.data)
+      } catch (error) {
+        console.log('cannot fetch applications' , error);
+      }
+    }
+
   useEffect(() => {
     getListitems();
+    appliedScholarships();
   },[]);
 
   return (
+    <>
     <div className='bg-[#2d3250] w-full h-screen fixed'>
       <div className='w-full h-24 bg-[#31354e] border-b-2 p-6 border-b-[#6b6d77b4]'>
         <div className='flex justify-start text-[#e6ac00] ms-40'>
@@ -154,7 +210,7 @@ const AdminHome = () => {
                     <div 
                       className='p-5 text-slate-50 bg-[#454a6e] border-b-2 border-b-[#535660] hover:bg-[#575e8b]' 
                       onClick={() => handleColumnClick('Content for cccccc')}>
-                      cccccc
+                     All Applications
                     </div>
                   </div>
                 </div>
@@ -281,23 +337,41 @@ const AdminHome = () => {
                     <div className="text-white">
                       <h2 className="text-xl  mb-4"> Content</h2>
                       
-                        <div className='bg-slate-900 p-5 h-[85vh] rounded-lg'>
-                            <Card sx={{ maxWidth: 345 }} >
-                              <CardActionArea>
-                                <CardContent>
-                                  <Typography gutterBottom variant="h5" component="div">
-                                    Name
-                                  </Typography>
-                                  <Typography variant="body2" color="text.secondary">
-                                    Lizards 
-                                  </Typography>
-                                </CardContent>
-                              </CardActionArea>
-                              <CardActions className='flex justify-between  '>
-                                 <button className='hover:bg-green-700 hover:text-white p-3 m-7 rounded-2xl ring-1 ring-green-500' > APPROVE</button>
-                                 <button  className='hover:bg-red-700  hover:text-white p-3 m-7 rounded-2xl ring-1 ring-red-500'> REJECT</button>
-                              </CardActions>
-                            </Card>
+                        <div className='bg-slate-900 p-5 h-[85vh] w-full fixed rounded-lg overflow-auto px-[250px]'>
+                           <div>
+                                 {
+                                  applications.map((item,index)=>(
+                                    <div key={index}>
+                                         <div className='border-2 rounded-lg bg-white w-[600px] h-[200px] mb-6 p-4'>
+                                      <div className='flex mb-5 border-b-2 py-2'>
+                                      <FcBusinessman style={{
+                                          fontSize:'25px',
+                                         }}/>
+                                       <h1 className='text-black mt-1 ml-2 font-semibold text-[18px]'> {item.name}</h1> 
+                                      </div>
+
+                                      <div className='flex mb-6'>
+                                      <FcGraduationCap  style={{
+                                          fontSize:'25px',
+                                         }} />
+                                      <h1 className='text-black mt-0 ml-2 font-semibold text-[18px]'> {item.scholarship}</h1> 
+                                      </div>
+
+                                      <div className='flex'>
+                                      <IoMailUnread   style={{
+                                          fontSize:'25px',
+                                          color:'#8f8f8f'
+                                         }} />
+                                      <h1 className='text-black mt-0 ml-2 font-semibold text-[18px]'> {item.email}</h1> 
+                                      </div>
+
+                                      <button className='font-semibold mt-5 text-blue-700' onClick={handleOpen}>More Details</button>
+                                          </div>
+                                        </div>
+                                   ))}
+
+                            
+                           </div>
                       </div>
 
                     </div>
@@ -309,9 +383,33 @@ const AdminHome = () => {
             </Grid>
           </Grid>
         </Box>
+
+        
       </div>
       <ToastContainer />
     </div>
+ 
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={open}>
+          <Box  sx={style}>
+     <p className='text-black'>   Name : {data?.name}</p>
+          </Box>
+        </Fade>
+      </Modal>
+    
+    </>
   );
 };
 
