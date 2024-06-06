@@ -1,0 +1,12 @@
+.buttons1:hover{
+background-color: white;
+color: black;
+box-shadow: 1px 1px 7px 1px #82f266;
+border-color: white;
+}
+.buttons2:hover{
+    background-color: white;
+    color: black;
+    box-shadow: 1px 1px 7px 1px #f26f66;
+    border-color: white;
+    }
