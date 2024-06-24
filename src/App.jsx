@@ -10,6 +10,7 @@ import Profile from './Pages/Profile'
 import AdminReg from './Admin/AdminReg'
 import AdminHome from './Admin/AdminHome'
 import AdminLogin from './Admin/AdminLogin'
+import Otp from './Pages/Otp'
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
       <Route path='/home' element={<Home/>}/>
       <Route path="/apply/:id/:name" element={<StudentApplication />}/>
       <Route path='/profile' element={<Profile/>}/>
+      <Route path='/otp' element={<Otp/>}/>
+
 
 
       <Route path='/adminreg' element={<AdminReg/>}/>
