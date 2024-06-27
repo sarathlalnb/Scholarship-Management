@@ -29,17 +29,25 @@ function Login() {
   }; */
 
   const handleSubmit = async (e) => {
+    console.log(formData.username);
     e.preventDefault();
     setError(null);
     try {
       const response = await axios.post('http://127.0.0.1:8000/login/', formData);
-      const { token, data } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('data', data);
-      localStorage.setItem('userId',data.id)
-      localStorage.setItem('username', data.username)
-      console.log(data);
+      const {  token,data } = response.data;
+      console.log(response.config.data);
+
+      
+      // localStorage.setItem('token', token);
+      // localStorage.setItem('data', data);
+      // localStorage.setItem('username',response.config. data.username)
      
+     
+      if(response.status == 200){
+        sessionStorage.setItem('username',formData.username)
+        navigate('/otp');
+      }
+
      /*  setTimeout(() => {
         if (isAdmin) {
           navigate('/adminhome');
@@ -50,7 +58,7 @@ function Login() {
            toast.success('Welcome User');
         }
       }, 2000); */
-      navigate('/home');
+      // navigate('/home');
     } catch (error) {
       console.error('Error logging in:', error);
       setError('Invalid username or password');
@@ -99,10 +107,13 @@ function Login() {
                 <div className='mt-7'>
                   <p className='reg'>Not yet a member? <Link to={'/register'} className='underline'>Register Now</Link></p>
                 </div>
+
                 <div className='reg-div2 flex justify-center drop-shadow-2xl rounded mt-4 bg-[#e6ac00]'>
+
                   <button variant='' type='submit' className='btn h-9'>
                     Login
                   </button>
+
                 </div>
 
                {/*  <div className='flex mt-4'>

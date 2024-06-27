@@ -1,8 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react'
 import otp from '../assets/Images/otp.png'
 import './Otp.css'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Otp() {
+    const [otpValues, setOtpValues] = useState(['', '', '', '','','']);
+    const [error, setError] = useState(null);
+const navigate = useNavigate();
+    const handleInput = (e, index) => {
+        const { value } = e.target;
+        console.log(value,index)
+        
+         const newOtpValues = [...otpValues];
+         newOtpValues[index] = value;
+
+         setOtpValues(newOtpValues);
+
+    
+        
+        
+    };
+
+    const handleSubmit = async () => {
+        const otp = otpValues.join('');
+        const payload = {
+            username : sessionStorage.getItem('username'),
+            otp : otp,
+        }
+        console.log(otp);
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/verify-otp/',payload);
+            console.log('Server response:', response); // Debugging step
+    
+            if (response.status == 200) {
+
+            sessionStorage.removeItem('username');
+            const {token,data}= response.data;
+            localStorage.setItem('token',token);
+            localStorage.setItem('data',data);
+            localStorage.setItem('username',data.username);
+            localStorage.setItem('userId',data.id);
+                navigate('/home'); // Correct function name for navigation
+            }
+           
+        } catch (error) {
+            console.error('Error verifying OTP:', error);
+            setError('Invalid OTP');
+        }
+    };
+
+
     return (
         <>
             <div className='w-full h-screen bg-[#E8E8E8] grid grid-rows-1'>
@@ -43,6 +91,7 @@ function Otp() {
                                     <input
                                         type='text'
                                         maxLength='1'
+                                        
                                         className='w-[50px] h-[50px] bg-gray-200 text-center text-2xl rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500'
                                         onInput={(e) => handleInput(e, 0)}
                                     />
@@ -64,8 +113,20 @@ function Otp() {
                                         className='w-[50px] h-[50px] bg-gray-200 text-center text-2xl rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500'
                                         onInput={(e) => handleInput(e, 3)}
                                     />
+                                     <input
+                                        type='text'
+                                        maxLength='1'
+                                        className='w-[50px] h-[50px] bg-gray-200 text-center text-2xl rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500'
+                                        onInput={(e) => handleInput(e, 4)}
+                                    />
+                                    <input
+                                        type='text'
+                                        maxLength='1'
+                                        className='w-[50px] h-[50px] bg-gray-200 text-center text-2xl rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500'
+                                        onInput={(e) => handleInput(e, 5)}
+                                    />
                                 </div>
-                                <button class="button mt-16">
+                                <button onClick={handleSubmit} class="button mt-16">
                                     Verify OTP
                                     <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
                                         <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
