@@ -105,8 +105,8 @@ function StudentApplication() {
                     <div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
                         <ul class="flex font-semibold justify-between">
 
-                            <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="#">Home</a></li>
-                            <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="#">Search</a></li>
+                            <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="/home">Home</a></li>
+                            <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="/home">Search</a></li>
                             <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="#">Explore</a></li>
                             <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="#">About</a></li>
                             <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="#">Contact</a></li>
@@ -186,7 +186,7 @@ function StudentApplication() {
                             type="text"
                             name="scholarship"
                             id="floating_scholarship"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-dark dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             value={formData.scholarship_name}
                             onChange={handleChange}
@@ -199,7 +199,7 @@ function StudentApplication() {
                     </div>
                     <div className="grid md:grid-cols-3 md:gap-6">
                         <div className="max-w-lg mx-auto">
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="certificate">Certificate</label>
+                            <label className="block mb-2 text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="certificate">Certificate</label>
                             <input
                                 className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 aria-describedby="certificate_help"
@@ -211,7 +211,7 @@ function StudentApplication() {
                             />
                         </div>
                         <div className="max-w-lg mx-auto">
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="identity">Identity</label>
+                            <label className="block mb-2 text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="identity">Identity</label>
                             <input
                                 className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 aria-describedby="identity_help"
@@ -223,7 +223,7 @@ function StudentApplication() {
                             />
                         </div>
                         <div className="max-w-lg mx-auto">
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="photo">Photo</label>
+                            <label className="block mb-2 text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="photo">Photo</label>
                             <input
                                 className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 aria-describedby="photo_help"

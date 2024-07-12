@@ -56,10 +56,10 @@ function Landing() {
             <div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
               <ul class="flex font-semibold justify-between">
                 <li class="md:px-4 md:py-2 hover:text-[#e6ac00]">
-                  <a href="#">Home</a>
+                  <a href="/home">Home</a>
                 </li>
                 <li class="md:px-4 md:py-2 hover:text-[#e6ac00]">
-                  <a href="#">Search</a>
+                  <a href="/home">Search</a>
                 </li>
                 <li class="md:px-4 md:py-2 hover:text-[#e6ac00]">
                   <a href="#">Explore</a>

@@ -38,9 +38,9 @@ function Login() {
       console.log(response.config.data);
 
       
-      // localStorage.setItem('token', token);
+      localStorage.setItem('token', token);
       // localStorage.setItem('data', data);
-      // localStorage.setItem('username',response.config. data.username)
+      // localStorage.setItem('username',response.config. data.username)               
      
      
       if(response.status == 200){

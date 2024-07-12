@@ -33,6 +33,7 @@ function AdminReg() {
     e.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8000/login/', formData);
+      console.log(response)
       const { token, data } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('data', data);

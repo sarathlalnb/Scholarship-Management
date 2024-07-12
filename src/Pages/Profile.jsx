@@ -73,7 +73,7 @@ function Profile() {
                 <ul class="flex font-semibold justify-between">
 
                   <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="/home">Home</a></li>
-                  <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="#">Search</a></li>
+                  <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="/home">Search</a></li>
                   <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="#">Explore</a></li>
                   <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="#">About</a></li>
                   <li class="md:px-4 md:py-2 hover:text-[#e6ac00]"><a href="#">Contact</a></li>
