@@ -101,7 +101,7 @@ const AdminHome = () => {
     console.log("Token:", token);
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/AddScholarship/",
+        "http://10.11.0.169:8000/AddScholarship/",
         formData,
         {
           headers: {
@@ -135,7 +135,7 @@ const AdminHome = () => {
     }
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/list_scholarshipbyadmin/",
+        "http://10.11.0.169:8000/list_scholarshipbyadmin/",
         listitem,
         {
           headers: { Authorization: `Token ${token}` },
@@ -169,7 +169,7 @@ const AdminHome = () => {
 
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/application_viewset/",
+        "http://10.11.0.169:8000/application_viewset/",
         {
           headers: {
             Authorization: `Token ${token}`,
@@ -235,7 +235,7 @@ const AdminHome = () => {
 
     try {
       const response = await axios.put(
-        `http://127.0.0.1:8000/application_viewset/${applicationId}/,{status}`,
+        `http://10.11.0.169:8000/application_viewset/${applicationId}/,{status}`,
         {
           headers: {
             Authorization: `Token ${token}`,

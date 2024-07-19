@@ -31,7 +31,7 @@ function AdminReg() {
     console.log('Form data before submission:', formData); 
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/registration/', formData);
+      const response = await axios.post('http://10.11.0.169:8000/registration/', formData);
       console.log('Response from the server:', response.data); 
       toast.success('Registration successful!');
       setTimeout(()=>{

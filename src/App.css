@@ -4,6 +4,15 @@
   width: 100%;
   position: fixed;
 }
+.button4{
+  border: 2px solid green;
+  padding: 6px;
+  border-radius: 10px;
+}
+.button4:hover{
+ border: none;
+ background-color: rgb(44, 223, 44);
+}
 .ad-bg-image {
   background: #2d3250;
   height: 100vh;

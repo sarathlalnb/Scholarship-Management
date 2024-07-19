@@ -32,7 +32,7 @@ function AdminReg() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/login/', formData);
+      const response = await axios.post('http://10.11.0.169:8000/login/', formData);
       console.log(response)
       const { token, data } = response.data;
       localStorage.setItem('token', token);
