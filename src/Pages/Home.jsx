@@ -88,12 +88,12 @@ function Home() {
 
   return (
     <div style={{ width: "100%", height: "100vh", backgroundColor: "#EEEEEE" }}>
-      <nav class="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
-        <div class="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
-          <div class="text-[#e6ac00] md:order-1">
+      <nav className="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
+        <div className="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
+          <div className="text-[#e6ac00] md:order-1">
             <svg
               xmlns="http://www.w333.org/2000/svg"
-              class="h-10 w-10"
+              className="h-10 w-10"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -106,29 +106,29 @@ function Home() {
               />
             </svg>
           </div>
-          <div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
-            <ul class="flex font-semibold justify-between">
-              <li class="md:px-4 md:py-2 hover:text-[#e6ac00]">
+          <div className="text-gray-500 order-3 w-full md:w-auto md:order-2">
+            <ul className="flex font-semibold justify-between">
+              <li className="md:px-4 md:py-2 hover:text-[#e6ac00]">
                 <a href="#">Home</a>
               </li>
-              <li class="md:px-4 md:py-2 hover:text-[#e6ac00]">
+              <li className="md:px-4 md:py-2 hover:text-[#e6ac00]">
                 <a href="#">Search</a>
               </li>
-              <li class="md:px-4 md:py-2 hover:text-[#e6ac00]">
+              <li className="md:px-4 md:py-2 hover:text-[#e6ac00]">
                 <a href="#">Explore</a>
               </li>
-              <li class="md:px-4 md:py-2 hover:text-[#e6ac00]">
+              <li className="md:px-4 md:py-2 hover:text-[#e6ac00]">
                 <a href="#">About</a>
               </li>
-              <li class="md:px-4 md:py-2 hover:text-[#e6ac00]">
+              <li className="md:px-4 md:py-2 hover:text-[#e6ac00]">
                 <a href="#">Contact</a>
               </li>
             </ul>
           </div>
-          <div class="order-2 md:order-3">
+          <div className="order-2 md:order-3">
             <Link
               to={"/profile"}
-              class="px-3 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50  flex items-center gap-2 w-[50px] h-[50px] rounded-full"
+              className="px-3 py-2 bg-[#e6ac00] hover:bg-[#ffd24d] text-gray-50  flex items-center gap-2 w-[50px] h-[50px] rounded-full"
             >
               <span>
                 <FaUser style={{ fontSize: "28px" }} />
@@ -137,48 +137,48 @@ function Home() {
           </div>
         </div>
       </nav>
-      <h1 className="text flex justify-center text-[50px] mt-5">
+      <h1 classNameName="text flex justify-center text-[50px] mt-5">
         Available Scholarships
       </h1>
       <div>
-        <body class="antialiased font-sans bg-gray-200">
-          <div class="container mx-auto px-4 sm:px-8">
-            <div class="py-8">
+        <body className="antialiased font-sans bg-gray-200">
+          <div className="container mx-auto px-4 sm:px-8">
+            <div className="py-8">
               <div>
-                <h2 class="text-2xl font-semibold leading-tight"></h2>
+                <h2 className="text-2xl font-semibold leading-tight"></h2>
               </div>
-              <div class="my-2 flex sm:flex-row flex-col">
-                <div class="flex flex-row mb-1 sm:mb-0"></div>
-                <div class="block relative">
-                  <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+              <div className="my-2 flex sm:flex-row flex-col">
+                <div className="flex flex-row mb-1 sm:mb-0"></div>
+                <div className="block relative">
+                  <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                     <svg
                       viewBox="0 0 24 24"
-                      class="h-4 w-4 fill-current text-gray-500"
+                      className="h-4 w-4 fill-current text-gray-500"
                     >
                       <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
                     </svg>
                   </span>
                   <input
                     placeholder="Search"
-                    class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                    className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                     value={searchQuery}
                     onChange={handleSearch}
                   />
                 </div>
               </div>
-              <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-                <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                  <table class="min-w-full leading-normal">
+              <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                  <table className="min-w-full leading-normal">
                     <thead>
                       <tr>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                           Scholarship Name
                         </th>
 
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100  text-xs font-semibold text-gray-600 uppercase tracking-wider ">
+                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100  text-xs font-semibold text-gray-600 uppercase tracking-wider ">
                           Created at
                         </th>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-right  text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-right  text-xs font-semibold text-gray-600 uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
@@ -186,16 +186,16 @@ function Home() {
                     <tbody>
                       {filteredScholarships.map((item, index) => (
                         <tr key={index}>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {item?.name}
                           </td>
 
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-center text-sm">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-center text-sm">
+                            <p className="text-gray-900 whitespace-no-wrap">
                               {item?.deadline}
                             </p>
                           </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-right text-sm">
+                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-right text-sm">
                             <Button
                               variant="outlined"
                               size="small"
@@ -216,15 +216,15 @@ function Home() {
                       ))}
                     </tbody>
                   </table>
-                  <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-                    {/*  <span class="text-xs xs:text-sm text-gray-900">
+                  <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+                    {/*  <span className="text-xs xs:text-sm text-gray-900">
                       Showing 1 to 4 of 50 Entries
                     </span> */}
-                    <div class="inline-flex mt-2 xs:mt-0">
-                      <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
+                    <div className="inline-flex mt-2 xs:mt-0">
+                      <button className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
                         Prev
                       </button>
-                      <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
+                      <button className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
                         Next
                       </button>
                     </div>
@@ -250,29 +250,29 @@ function Home() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <h6 className="font-semibold text-3xl border-b-2 border-b-slate-400 p-2 border-w">
+            <h6 classNameName="font-semibold text-3xl border-b-2 border-b-slate-400 p-2 border-w">
               Scholarship Details
             </h6>
-            <div className=" grid grid-cols-2 p-4 mt-6">
-              <div className="col-span-1 border-r-2 border-r-slate-400 p-4 w-[200px]">
-                <p className="font-semibold mb-6 text-lg">Scholarship name </p>
-                <p className="font-semibold mb-6 text-lg">Description </p>
-                <p className="font-semibold mb-6 text-lg">Eligibility </p>
-                <p className="font-semibold mb-6 text-lg">Amount </p>
-                <p className="font-semibold mb-6 text-lg">Duration </p>
-                <p className="font-semibold mb-6 text-lg">Deadline </p>
+            <div classNameName=" grid grid-cols-2 p-4 mt-6">
+              <div classNameName="col-span-1 border-r-2 border-r-slate-400 p-4 w-[200px]">
+                <p classNameName="font-semibold mb-6 text-lg">Scholarship name </p>
+                <p classNameName="font-semibold mb-6 text-lg">Description </p>
+                <p classNameName="font-semibold mb-6 text-lg">Eligibility </p>
+                <p classNameName="font-semibold mb-6 text-lg">Amount </p>
+                <p classNameName="font-semibold mb-6 text-lg">Duration </p>
+                <p classNameName="font-semibold mb-6 text-lg">Deadline </p>
               </div>
-              <div className="col-span-1 p-4">
-                <p className="font-semibold mb-6 text-lg">{data?.name} </p>
-                <p className="font-semibold mb-6 text-lg">
+              <div classNameName="col-span-1 p-4">
+                <p classNameName="font-semibold mb-6 text-lg">{data?.name} </p>
+                <p classNameName="font-semibold mb-6 text-lg">
                   {data?.description}{" "}
                 </p>
-                <p className="font-semibold mb-6 text-lg">
+                <p classNameName="font-semibold mb-6 text-lg">
                   {data?.eligibility}
                 </p>
-                <p className="font-semibold mb-6 text-lg">{data?.amount} </p>
-                <p className="font-semibold mb-6 text-lg">{data?.duration} </p>
-                <p className="font-semibold mb-6 text-lg">{data?.deadline} </p>
+                <p classNameName="font-semibold mb-6 text-lg">{data?.amount} </p>
+                <p classNameName="font-semibold mb-6 text-lg">{data?.duration} </p>
+                <p classNameName="font-semibold mb-6 text-lg">{data?.deadline} </p>
               </div>
 
               <hr />
