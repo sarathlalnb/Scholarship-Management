@@ -107,7 +107,7 @@ function Profile() {
                     <Link to={'/panel'} className="button2">Go to Panel </Link>
                   ) : (
                     <div>
-                     <Link to={'/register'} className="button4">
+                     <Link to={'/scholarForm'} className="button4">
                         Request To be a Scholarship provider
                       </Link>
                     </div>

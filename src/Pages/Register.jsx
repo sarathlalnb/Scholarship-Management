@@ -8,6 +8,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import register from "../assets/Images/register.jpg";
 import { endpoints } from "../defualts";
+import Loader from "./Loader";
+
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -18,7 +20,7 @@ function Register() {
     address: "",
     password: "",
   });
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -33,16 +35,19 @@ function Register() {
     e.preventDefault();
     console.log("Form data before submission:", formData);
     localStorage.setItem("reqEmail", formData.email);
+    setLoading(true); // Set loading to true when form is submitted
     try {
       const response = await axios.post(endpoints.REGISTER, formData);
       console.log("Response from the server:", response.data);
       toast.success("Registration successful!");
       setTimeout(() => {
-        navigate("/otp");
+        navigate('/otp', { state: { from: 'registration' } });
       }, 2000);
     } catch (error) {
       console.error("Error submitting the form:", error);
       toast.error("Error submitting the form!");
+    } finally {
+      setLoading(false); // Set loading to false after the response is received
     }
   };
 
@@ -139,7 +144,7 @@ function Register() {
                 </div>
                 <div className="reg-div flex justify-center drop-shadow-2xl rounded mt-4 ms-2 bg-[#e6ac00]">
                   <button type="submit" className="btn h-9 text-white w-">
-                    Register
+                    {loading ? <Loader /> : "Register"} 
                   </button>
                 </div>
               </form>

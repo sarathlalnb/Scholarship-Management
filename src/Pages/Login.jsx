@@ -7,6 +7,7 @@ import waves from "../waves3new.json";
 import { ToastContainer, toast } from "react-toastify";
 import pattern from "../assets/Images/patterns.png";
 import { endpoints } from "../defualts";
+import Loader from "./Loader";
 
 
 function Login() {
@@ -14,7 +15,8 @@ function Login() {
     email: "",
     password: ""
   });
-  const [isAdmin, setIsAdmin] = useState(false); 
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -35,6 +37,7 @@ function Login() {
     e.preventDefault();
     setError(null);
     localStorage.setItem("reqEmail", formData.email);
+    setLoading(true);
     try {
       const response = await axios.post(
         endpoints.LOGIN,
@@ -49,6 +52,7 @@ function Login() {
   
         localStorage.setItem("token", token);
       }
+      setLoading(false);
     } catch (error) {
       console.error("Error logging in:", error);
       setError("Invalid  email or password");
@@ -120,7 +124,7 @@ function Login() {
 
                 <div className="reg-div2 flex justify-center drop-shadow-2xl rounded mt-4 bg-[#e6ac00]">
                   <button variant="" type="submit" className="btn h-9">
-                    Login
+                  {loading ? <Loader /> : "Login"}
                   </button>
                 </div>
 
